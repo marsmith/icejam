@@ -1,0 +1,160 @@
+html, body, {
+  padding: 0; 
+  margin: 0;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  }
+  
+  body {
+    padding-top: 93px;
+  }
+
+  img {
+    width: 100%;
+}
+  
+  /* open-sans-regular - latin */
+  @font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/OpenSans-Regular.eot'); /* IE9 Compat Modes */
+  src: local('Open Sans'), local('OpenSans'),
+       url('../fonts/OpenSans-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/OpenSans-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/OpenSans-Regular.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/OpenSans-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/OpenSans-Regular.svg#OpenSans') format('svg'); /* Legacy iOS */
+  }
+
+/*
+    ===========================
+    ===========================
+         Navigation Bar
+    ===========================
+    ===========================
+*/
+
+.top-menu-btn{
+  background-color: transparent;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 12pt;
+  margin: 18px auto;
+}
+.top-menu-btn:hover{
+  font-size: 12pt;
+  background-color: transparent;
+  border: none;
+  color: rgba(255,255,255,0.8)
+}
+.top-menu-btn:focus{
+  background-color: transparent;
+  border: none;
+  color: rgba(255,255,255,0.8);
+  font-size: 12pt;
+}
+.top-menu-btn:active{
+  color: rgba(255,255,255,1) !important;
+  background-color: transparent !important;
+  font-size: 12pt;
+  border: none;
+}
+
+.top-menu-brand {
+  padding: 12px 20px 15px;
+}
+
+.top-menu-brand > img {
+height: 50px !important;
+}
+
+.app-name {
+position: relative;
+width: 100%;
+line-height: 70px;
+padding: 0 10px;
+font-size: 23px;
+color: #ffffff;
+margin: 0;
+z-index: 10;
+}
+
+.app-name-mobile{
+  position: relative;
+  top:-2px;
+  font-weight:300;
+}
+
+.app-name-mobile {
+display: none;
+position: relative;
+width: 100%;
+line-height: 70px;
+padding: 0 10px;
+font-size: 30px;
+color: #ffffff;
+margin: 0;
+z-index: 10;
+
+}
+
+
+/*
+  ===========================
+  ===========================
+       Map
+  ===========================
+  ===========================
+*/
+
+#mapDiv {
+  height:300px;
+}
+
+
+.openGraphingModule:hover {
+  cursor: pointer;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0px;
+}
+
+.leaflet-popup-content img { margin: 0 auto; display:block; }
+
+/*
+  ===========================
+  ===========================
+       Top menu
+  ===========================
+  ===========================
+*/
+
+#top-menu {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+background-color: #1d1d2b;
+z-index: 9;
+}
+
+#top-menu > div:not(.logo) {
+float: left;
+}
+
+#mobile-main-menu {
+display: none;
+cursor: pointer;
+}
+
+#mobile-main-menu {
+padding: 24px 15px;
+color:white;
+}
+
+/************* END TOP MENU **************/

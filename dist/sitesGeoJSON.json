@@ -1,0 +1,85 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+  {
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates":  [ -73.9903722,42.8281583 ]
+    },
+    "properties": {
+      "siteType": "gage",
+      "siteName": "MOHAWK RIVER AT LOCK 8 NEAR SCHENECTADY NY",
+      "siteID": "01354330",
+      "photoURL": "https://ny.water.usgs.gov/images/StationPictures/01354330.jpg"
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates":  [ -73.93075,42.83052778 ]
+    },
+    "properties": {
+      "siteType": "gage",
+      "siteName":"MOHAWK RIVER AT FREEMAN'S BRIDGE AT SCHENECTADY NY",
+      "siteID":"01354500",
+      "photoURL": "https://ny.water.usgs.gov/images/StationPictures/01354500.jpg"
+    }
+  },
+ {
+   "type": "Feature",
+   "geometry": {
+      "type": "Point",
+      "coordinates":  [ -73.88725,42.8511111 ]
+   },
+   "properties": {
+    "siteType": "gage",
+    "siteName":"MOHAWK RIVER AT REXFORD NY",
+    "siteID":"01355475",
+    "photoURL":"https://ny.water.usgs.gov/images/StationPictures/01355475.jpg"
+   }
+ },
+ {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates":  [ -73.8476667,42.80419444 ]
+    },
+    "properties": {
+      "siteType": "gage",
+      "siteName":"MOHAWK RIVER AT VISCHER FERRY DAM NY",
+      "siteID":"01356000",
+      "photoURL":"https://ny.water.usgs.gov/images/StationPictures/01356000.jpg"
+    }
+ },
+ {
+   "type": "Feature",
+   "geometry": {
+      "type": "Point",
+      "coordinates":  [ -73.9922,42.8298 ]
+   },
+   "properties": {
+     "siteType": "webcam",
+     "siteName":"LOCK 8 WEBCAM",
+     "siteID":"LOCK 8 WEBCAM",
+     "webcamURL":"https://prd-wret.s3-us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/styles/atom_page_medium/public/thumbnails/image/icejamwebcam.jpg",
+     "webcamLink":"https://ny.water.usgs.gov/flood/MohawkIce/lock8.html"
+   }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -73.9435,42.821 ]
+    },
+    "properties": {
+      "siteType": "webcam",
+      "siteName":"STOCKADE WEBCAM",
+      "siteID":"STOCKADE WEBCAM",
+      "webcamURL":"https://prd-wret.s3-us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/styles/atom_page_medium/public/thumbnails/image/stockade1.jpg",
+      "webcamLink":"https://ny.water.usgs.gov/flood/MohawkIce/stockade.html"
+    }
+   }
+]
+}
