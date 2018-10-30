@@ -24,6 +24,7 @@
       "siteType": "gage",
       "siteName":"MOHAWK RIVER AT FREEMAN'S BRIDGE AT SCHENECTADY NY",
       "siteID":"01354500",
+      "ahpsURL": "https://water.weather.gov/ahps2/hydrograph.php?wfo=aly&gage=schn6",
       "photoURL": "https://ny.water.usgs.gov/images/StationPictures/01354500.jpg"
     }
   },

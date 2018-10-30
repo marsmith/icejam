@@ -32,34 +32,37 @@
             <p>Back to <a href="../sticky-footer">the default sticky footer</a> minus the navbar.</p>
         </main> -->
 
-        <main role="main" class="container mt-5">
+        <main role="main" class="container mt-4">
             <div class="row">
-                <div class="col col-lg-8">
+                <div class="col-lg-8 mb-2">
                     <div id="mapDiv">
                     </div>
                 </div>
+                <div class="col">
+                    <img src="https://prd-wret.s3-us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/styles/atom_page_medium/public/thumbnails/image/icejamwebcam.jpg" class="rounded" alt="1">
 
-
-
-                <div class="col col-md-4">
-                        <img src="https://prd-wret.s3-us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/styles/atom_page_medium/public/thumbnails/image/icejamwebcam.jpg" class="rounded" alt="1">
-
-                        <img src="https://prd-wret.s3-us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/styles/atom_page_medium/public/thumbnails/image/stockade1.jpg" class="rounded" alt="2">
+                    <img src="https://prd-wret.s3-us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/styles/atom_page_medium/public/thumbnails/image/stockade1.jpg" class="rounded mt-2" alt="2">
                 </div>
             </div>
+
             <div class="row">
-                <div class="col col-sm-8">
-                    <table id="legend" class="table table-hover mb-0" style="display:none;">
-                        <thead>
-                            <tr>
-                                <th>Icon</th>
-                                <th>Site Name</th>
-                            </tr>
-                        </thead>
-                        <tbody ></tbody>
-                    </table>
+                <div class="col-lg-8 mb-2">
+                    <div id="graphContainer">
+                    </div>
+      
+                    <label class="btn btn-secondary">
+                        <input id="mainChartScaleToggle" type="checkbox" aria-label="Checkbox for following text input"> Auto Scale
+                    </label>
+
                 </div>
             </div>
+
+            <div class="row">
+                    <div class="col-lg-8 mb-2">
+                        <div id="graphContainer2">
+                        </div>
+                    </div>
+                </div>
         </main>
 
     <div id="graphModal" class="modal fade"  tabindex="-1" role="dialog" >

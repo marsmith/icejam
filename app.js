@@ -1,15 +1,15 @@
 // ------------------------------------------------------------------------------
-// ----- HRECOS -----------------------------------------------------------------
+// ----- Ice Jam Monitoring -----------------------------------------------------
 // ------------------------------------------------------------------------------
 
 // copyright:   2018 Martyn Smith - USGS NY WSC
 
 // authors:  Martyn J. Smith - USGS NY WSC
 
-// purpose:  HABS Data Viewer
+// purpose:  Ice Jam Monitoring
 
 // updates:
-// 08.07.2018 - MJS - Created
+// 10.27.2018 - MJS - Created
 
 //CSS imports
 import 'bootstrap/dist/css/bootstrap.css';
@@ -25,6 +25,7 @@ import 'bootstrap/js/dist/modal';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/tab';
 import 'select2';
+import * as d3 from 'd3';
 import moment from 'moment'
 import Highcharts from 'highcharts';
 import addExporting from "highcharts/modules/exporting";
@@ -33,7 +34,7 @@ import { map, control, tileLayer, featureGroup, geoJSON, Icon } from 'leaflet';
 import { basemapLayer, dynamicMapLayer } from 'esri-leaflet';
 
 //START user config variables
-var MapX = '-73.92'; //set initial map longitude
+var MapX = '-73.90'; //set initial map longitude
 var MapY = '42.825'; //set initial map latitude
 var MapZoom = 12; //set initial map zoom
 var sitesURL = './sitesGeoJSON.json';
@@ -48,8 +49,9 @@ var NWISivURL = 'https://nwis.waterservices.usgs.gov/nwis/iv/';
 var theMap;
 var baseMapLayer, basemaplayerLabels;
 var weatherLayer = {};
-var NWISmarkers = {};
 var sitesLayer;
+var svg, g;
+var mainChart;
 
 //END global variables
 
@@ -61,7 +63,12 @@ $(document).ready(function () {
   Icon.Default.imagePath = './images/';
 
   //create map
-  theMap = map('mapDiv', { attributionControl: false, zoomControl: false, minZoom: 8, });
+  theMap = map('mapDiv', { attributionControl: false, zoomControl: false, minZoom: 12, });
+
+  //create svg div
+  svg = d3.select("#graphContainer").append("svg").attr('width',$('#mapDiv').width());
+  g = svg.append("g").attr("class", "d3chart");	
+  g.append("path");
 
   //add zoom control with your options
   control.zoom({ position: 'topright' }).addTo(theMap);
@@ -86,6 +93,9 @@ $(document).ready(function () {
   sitesLayer = featureGroup().addTo(theMap);
 
   loadSites();
+
+
+  //https://bost.ocks.org/mike/leaflet/
 
   /*  START EVENT HANDLERS */
   $('.weatherBtn').click(function () {
@@ -125,6 +135,22 @@ $(document).ready(function () {
     //openPopup(e)
   });
 
+  $('#mainChartScaleToggle').click(function () {
+
+    if ($(this).is(':checked')) {
+      mainChart.yAxis[0].update({
+        min:null,
+        max:null
+      });
+    }
+    else {
+      mainChart.yAxis[0].update({
+        min:5,
+        max:30
+      });
+    }
+  });
+
   /*  END EVENT HANDLERS */
 
 });
@@ -143,7 +169,6 @@ function openPopup(e) {
   popup.setContent(popupContent).openOn(theMap);
 
 }
-
 
 function openGraphingModule() {
   $('#graphModal').modal('show');
@@ -220,14 +245,47 @@ function getRandomColor() {
   return color;
 }
 
-function showGraph(startTime,seriesData) {
-  console.log('seriesData',startTime,seriesData);
+function showGraph(time,categories,seriesData,graphContainer) {
+  console.log('showGraph:',categories,seriesData);
 
   //clear out graphContainer
-  $('#graphContainer').html('');
+  //$('#' + graphContainer).html('');
+  
+  //chart init object
+  var chartSetup = {
 
-  //if there is some data, show the div
-  $('#graphModal').modal('show');
+		title:{
+			text:'Gage Height (ft) by gage for ' + new Date(time).toLocaleString()
+		},
+		credits: {
+			enabled: false
+    },
+    tooltip: {
+      shared: true
+    },
+		xAxis: {
+			categories: categories
+    },
+    yAxis: {
+      title: { 
+        text: 'Feet'
+      },
+      min: 5,
+      max: 30
+    },
+		series: seriesData
+  };
+
+  
+  mainChart = Highcharts.chart(graphContainer, chartSetup);
+
+}
+
+function showGraphAllData(startTime,seriesData,graphContainer) {
+  //console.log('seriesData',startTime,seriesData);
+
+  //clear out graphContainer
+  $('#' + graphContainer).html('');
 
 	Highcharts.setOptions({
 		global: { useUTC: false },
@@ -240,12 +298,96 @@ function showGraph(startTime,seriesData) {
 			type: 'line',
 			spacingTop: 20,
 			spacingLeft: 0,
-			spacingBottom: 0,
+      spacingBottom: 0,
+      zoomType: 'x',
+      events: {
+        load: function () {
+          //once map is loaded, sent most recent value to mainChart
+          console.log('big chart loaded');
+          var seriesData = [
+            {
+              data: [],
+              name:'Gage height, ft' 
+            },
+            {
+              data: [],
+              name:'Difference between observed and predicted water surface elevation, feet' 
+            }
+          ];
+          var categories = [];
+          var value,time;
+          $(this.series).each(function (i, series) {
+            //console.log('series',series)
+            var index = series.data.length - 1;
+            time = series.data[index].x;
+            value = series.data[index].y;
+
+            var name = series.name.split('|');
+
+            $(seriesData).each(function (i, seriesObj) {
+              //console.log(seriesObj.name,name[1])
+              if (seriesObj.name.trim() === name[1].trim()) {
+                //console.log('match found', value)
+                seriesObj.data.push(value);
+              }
+            });
+
+            if (categories.indexOf(name[0]) === -1) categories.push(name[0]);
+          });
+          console.log(time,categories,seriesData);
+          showGraph(time,categories,seriesData,'graphContainer');
+        }
+      }
     },
     plotOptions: {
       series: {
         pointStart: startTime,
-        pointInterval: 900000 //15 minutes
+        pointInterval: 900000, //15 minutes
+        point: {
+          events: {
+            mouseOver: function () {
+              var seconds = this.x;
+              var time = new Date(seconds).toLocaleString();
+              var seriesData = [
+                {
+                  data: [],
+                  name:'Gage height, ft' 
+                },
+                {
+                  data: [],
+                  name:'Difference between observed and predicted water surface elevation, feet' 
+                }
+              ];
+              var value = null;
+              $(this.series.chart.series).each(function (i, series) {
+                var name = series.name.split('|');
+  
+                //search for and only add exact time matched data
+                $(series.data).each(function (i, item) {
+                  if (item.x === seconds) {
+                    value = item.y;
+
+                    $(seriesData).each(function (i, seriesObj) {
+                      //console.log(seriesObj,name[1])
+                      if (seriesObj.name.trim() === name[1].trim()) {
+                        //console.log('222match found', value)
+                        seriesObj.data.push(value);
+                      }
+                    });
+                  }
+                });
+              });
+              mainChart.series[0].update(seriesData[0],false);
+              mainChart.series[1].update(seriesData[1],true);
+              mainChart.setTitle({text: 'Gage Height (ft) by gage for ' + time});
+            }
+          }
+        },
+        events: {
+            // mouseOut: function () {
+                
+            // }
+        }
       }
     },
 		title:{
@@ -316,7 +458,7 @@ function showGraph(startTime,seriesData) {
     
   });
 
-	var chart = Highcharts.chart('graphContainer', chartSetup);
+	var chart = Highcharts.chart(graphContainer, chartSetup);
   
   // update colors
   // https://www.highcharts.com/demo/combo-multi-axes
@@ -334,7 +476,7 @@ function addToLegend(text, classString) {
 
   if (document.getElementById(id) === null) {
     $('#legend > tbody').append('<tr id="' + id + '" class="site"><td><div><icon class="siteIcon ' + classString + '" /></div></td><td class="siteData"><span class="siteName">' + text + '</span></td></tr>');
-    $('#legend .siteIcon').attr('style', 'margin-top: -6px !important; margin-left: 3px !important');
+    $('#legend .siteIcon').attr('style', 'margin-top: -6px !important;');
   }
 }
 
@@ -348,7 +490,7 @@ function getColor(siteID) {
 function loadSites() {
   console.log('in loadsites');
 
-
+  //first load mohawk boundary geoJSON
   $.ajax({
     url: mohawkBoundaryURL,
     dataType: 'json',
@@ -367,7 +509,7 @@ function loadSites() {
     }
   });
 
-
+  //then load sites geojson
   $.ajax({
     url: sitesURL,
     dataType: 'json',
@@ -380,7 +522,7 @@ function loadSites() {
         return (item.properties.siteType === 'gage');
       }).map(function(obj) { return obj.properties.siteID; }).join(',');
 
-      console.log('here2',siteList)
+      console.log('site list:',siteList);
 
       //get most recent NWIS data
       $.getJSON(NWISivURL, {
@@ -437,7 +579,18 @@ function loadSites() {
               });
               if (!found) console.log('no data found for:',feature.properties['siteID'])  
             });
+
+            //add legend
+            var legend = L.control({position: 'bottomright'});
+            legend.onAdd = function (theMap) {
             
+                var div = L.DomUtil.create('div', 'info map-legend');
+                div.innerHTML += '<table id="legend" class="table table-borderless mb-0"><tbody></tbody></table>';
+                return div;
+            };
+            
+            legend.addTo(theMap);
+                                    
             var geoJSONlayer = geoJSON(featureCollection, {
               pointToLayer: function (feature, latlng) {
 
@@ -450,12 +603,17 @@ function loadSites() {
                 }
           
                 addToLegend(text, classString);
+
           
                 var icon = L.divIcon({ className: classString });
                 return L.marker(latlng, { icon: icon });
               },
               onEachFeature: function(feature, layer) {
                 var popupContent = '<b>Site ID: </b><a href="https://waterdata.usgs.gov/nwis/uv/?site_no=' + feature.properties.siteID + '" target="_blank">' + feature.properties.siteID + '</a><br><b>Station Name:</b> ' + feature.properties.siteName;
+
+                if (feature.properties.ahpsURL && feature.properties.ahpsURL.length > 0) {
+                  popupContent += '<br><b>NWS AHPS: </b><a href="' + feature.properties.ahpsURL + '" target="_blank">link</a>';
+                }
 
                 if (feature.properties.photoURL && feature.properties.photoURL.length > 0) {
                   popupContent += '<br><b>Site photo (static): </b><a href="' + feature.properties.photoURL + '" target="_blank">link</a>';
@@ -465,11 +623,22 @@ function loadSites() {
                   popupContent += '<br><b>Webcam photo (live):</b><a href="' + feature.properties.webcamLink + '" target="_blank"><img style="width:100%;" src="' + feature.properties.webcamURL + '"/></a>';
                 }
 
-                if (feature.properties.siteType === 'gage') popupContent += '<br><h5><span class="openGraphingModule ml-2 badge badge-success" data-sitename="' + feature.properties.siteName + '" data-siteid="' + feature.properties.siteID + '" >Get Data</span></h5>';
+                $.each(feature.properties, function (key, value) {
+                  var pcode = key.split(':')[0];
+                  if (/^\d+$/.test(pcode) && pcode.length === 5) {
+                    //console.log('PCODE',pcode,value)
+                    var d = new Date(value.dateTime);
+                    var n = d.toLocaleString();
+                    popupContent += '<br><b>' + value.name + ' (' + n + '): </b>' + value.value;
+                  }
+              
+                });
+
+                //if (feature.properties.siteType === 'gage') popupContent += '<br><h5><span class="openGraphingModule ml-2 badge badge-success" data-sitename="' + feature.properties.siteName + '" data-siteid="' + feature.properties.siteID + '" >Get Data</span></h5>';
 
                 layer.bindPopup(popupContent);
 
-                console.log('feature:',feature.properties)
+                //console.log('feature:',feature.properties)
               }
             });
           
@@ -482,28 +651,97 @@ function loadSites() {
             $('#legend').show();
       });
 
-      // $('#loading').hide();
-      // $(data).find('site').each(function(){
+      //get historical NWIS data
+      //$.getJSON(NWISivURL, {
 
-      //   var classString = 'wmm-pin wmm-mutedblue wmm-icon-circle wmm-icon-white wmm-size-25';
-      //   var icon = L.divIcon({ className: classString });
+      $.getJSON('./testData.json', {
+          dataType: 'json'
+          // sites: siteList,
+          // startDt: '2018-01-10',
+          // endDT: '2018-02-10',
+          // parameterCd: '00065,99067'
+        }, function success(data) {
+            console.log('NWIS historical IV Data:',data);
 
-      //   var siteID = $(this).attr('sno');
-      //   var siteName = $(this).attr('sna');
-      //   var lat = $(this).attr('lat');
-      //   var lng = $(this).attr('lng');
-      //   console.log('Site found:',siteID,siteName,lat,lng)
-      //   NWISmarkers[siteID] = L.marker([lat, lng], {icon: icon});
-      //   NWISmarkers[siteID].data = {siteName:siteName,siteCode:siteID};
-      //   NWISmarkers[siteID].data.parameters = {};
+            var seriesData = [];
+     
+            if (data.value.timeSeries.length <= 0) {
+              alert('Found an NWIS site [' + siteIDs + '] but it had no data in waterservices for [' +  parameterCodes + ']');
+              $('#graph-loading').hide();
+              return;
+            }
 
-      //   //add point to featureGroup
-      //   sitesLayer.addLayer(NWISmarkers[siteID]);
+            var startTime = data.value.queryInfo.criteria.timeParam.beginDateTime;   
+        
+            $(data.value.timeSeries).each(function (i, siteParamCombo) {
 
-      // });
+              $(siteParamCombo.values).each(function (i, value) {
 
-      // theMap.fitBounds(sitesLayer.getBounds());
-      
+                //temp func to populate fake data array
+                var site = siteParamCombo.name.split(':');
+                if (site[2] === '99067') {
+                  $(data.value.timeSeries).each(function (i, test) {
+                    //look for gage height for same station id
+                    var lookupsite = test.name.split(':');
+
+                    //if we have the matching site
+                    if (site[1] === lookupsite[1] && lookupsite[2] === '00065') {
+                      console.log('lookupsite', site[1],site[2],lookupsite[1],lookupsite[2]);
+
+                      //console.log(test.values[0])
+                      $(test.values[0].value).each(function (i,val) {
+                        var num = Math.floor(Math.random()*5) + 0.1;
+                        //console.log(num,val)
+                        var newObj = JSON.parse(JSON.stringify(val));
+                        newObj.value = val.value/1 - num;
+                        value.value.push(newObj);
+                      })
+                    }
+                  });
+                }
+
+                //console.log('herenow',siteParamCombo)
+
+                var valueArray = value.value.map(function(item) {
+                  var seconds = new Date(item.dateTime)/1;
+                  //return item.value/1;
+                  return [seconds,item.value/1];
+                });
+
+                //make sure we bail from loop if there is no data
+                if (valueArray.length === 0) return;
+
+                var name;
+                if (value.method[0].methodDescription.length > 0) name = siteParamCombo.sourceInfo.siteName + ' | ' + $('<div>').html(siteParamCombo.variable.variableName).text() + ' | ' + value.method[0].methodDescription;
+                else name = siteParamCombo.sourceInfo.siteName + ' | ' + $('<div>').html(siteParamCombo.variable.variableName).text();
+          
+                var series = {
+                  showInLegend: true,
+                  values: value,
+                  data: valueArray,
+                  color: getRandomColor(),
+                  siteID: siteParamCombo.sourceInfo.siteCode[0].value,
+                  siteName: siteParamCombo.sourceInfo.siteName,
+                  siteCode: siteParamCombo.name,
+                  variableDescription: siteParamCombo.variable.variableDescription,
+                  variableName: siteParamCombo.variable.variableName,
+                  unit: siteParamCombo.variable.unit.unitCode,
+                  name:name,
+                };
+              
+                seriesData.push(series);
+              });
+            });
+
+            //console.log('TEST',startTime,seriesData)
+            showGraphAllData(startTime,seriesData, 'graphContainer2');
+
+
+
+            //getDayList(data);
+
+
+      });    
 
     }
   });
