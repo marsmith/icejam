@@ -370,7 +370,7 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
                     $(seriesData).each(function (i, seriesObj) {
                       //console.log(seriesObj,name[1])
                       if (seriesObj.name.trim() === name[1].trim()) {
-                        //console.log('222match found', value)
+                        //console.log('match found', value)
                         seriesObj.data.push(value);
                       }
                     });
