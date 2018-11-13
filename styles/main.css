@@ -111,6 +111,10 @@ z-index: 10;
   ===========================
 */
 
+.wmm-ff0000:after{background-color:#ff0000;}.wmm-triangle.wmm-ff0000{border-bottom-color: rgba(0, 0, 0, 0.5);}.wmm-triangle.wmm-ff0000:after{color: #ff0000;}
+.wmm-008000:after{background-color:#008000;}.wmm-triangle.wmm-008000{border-bottom-color: rgba(0, 0, 0, 0.5);}.wmm-triangle.wmm-008000:after{color: #008000;}
+.wmm-ffff00:after{background-color:#ffff00;}.wmm-triangle.wmm-ffff00{border-bottom-color: rgba(0, 0, 0, 0.5);}.wmm-triangle.wmm-ffff00:after{color: #ffff00;}
+
 .info {
   padding: 6px 8px;
   font: 14px/16px Arial, Helvetica, sans-serif;

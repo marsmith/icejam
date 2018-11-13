@@ -16,6 +16,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 import 'leaflet/dist/leaflet.css';
 import 'marker-creator/stylesheets/markers.css';
+import 'marker-creator/stylesheets/markers.css';
 import 'select2/dist/css/select2.css';
 import './styles/main.css';
 
@@ -25,13 +26,15 @@ import 'bootstrap/js/dist/modal';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/tab';
 import 'select2';
+
 import * as d3 from 'd3';
-import moment from 'moment'
+import moment from 'moment';
 import Highcharts from 'highcharts';
 import addExporting from "highcharts/modules/exporting";
 addExporting(Highcharts)
 import { map, control, tileLayer, featureGroup, geoJSON, Icon } from 'leaflet';
 import { basemapLayer, dynamicMapLayer } from 'esri-leaflet';
+import 'leaflet-easybutton';
 
 //START user config variables
 var MapX = '-73.90'; //set initial map longitude
@@ -49,9 +52,9 @@ var NWISivURL = 'https://nwis.waterservices.usgs.gov/nwis/iv/';
 var theMap;
 var baseMapLayer, basemaplayerLabels;
 var weatherLayer = {};
-var sitesLayer;
 var svg, g;
 var mainChart;
+var sitesGeoJSON, boundaryGeoJSON;
 
 //END global variables
 
@@ -65,13 +68,26 @@ $(document).ready(function () {
   //create map
   theMap = map('mapDiv', { attributionControl: false, zoomControl: false, minZoom: 12, });
 
+  // L.easyButton('fa-home fa-2x',function(btn,map){
+  //   map.setView([MapY, MapX], MapZoom);
+  // },'Zoom To Home').addTo(theMap);
+
+  // make a bar with the buttons
+var zoomBar = L.easyBar([
+  L.easyButton( 'fa-plus fa-2x',  function(control, map){map.setZoom(map.getZoom()+1);}),
+  L.easyButton( 'fa-home fa-2x', function(control, map){map.setView([MapY, MapX], MapZoom);}),
+  L.easyButton( 'fa-minus fa-2x',  function(control, map){map.setZoom(map.getZoom()-1);})
+]);
+
+// add it to the map
+zoomBar.addTo(theMap);
+
   //create svg div
   svg = d3.select("#graphContainer").append("svg").attr('width',$('#mapDiv').width());
   g = svg.append("g").attr("class", "d3chart");	
   g.append("path");
 
   //add zoom control with your options
-  control.zoom({ position: 'topright' }).addTo(theMap);
   control.scale().addTo(theMap);
 
   //basemap
@@ -90,7 +106,7 @@ $(document).ready(function () {
   theMap.setView([MapY, MapX], MapZoom);
 
   //define layers
-  sitesLayer = featureGroup().addTo(theMap);
+  //sitesLayer = featureGroup().addTo(theMap);
 
   loadSites();
 
@@ -131,9 +147,9 @@ $(document).ready(function () {
     downloadData();
   });
 
-  sitesLayer.on('click', function (e) {
-    //openPopup(e)
-  });
+  // sitesLayer.on('click', function (e) {
+  //   //openPopup(e)
+  // });
 
   $('#mainChartScaleToggle').click(function () {
 
@@ -307,17 +323,20 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
           var seriesData = [
             {
               data: [],
+              displayName:'Gage height, ft',
               name:'Gage height, ft' 
             },
             {
               data: [],
-              name:'Difference between observed and predicted water surface elevation, feet' 
+              displayName:'Difference between observed and predicted water surface elevation, feet',
+              name:'Modeled gage height, ft' 
             }
           ];
           var categories = [];
           var value,time;
           $(this.series).each(function (i, series) {
-            //console.log('series',series)
+
+            //get index of last value
             var index = series.data.length - 1;
             time = series.data[index].x;
             value = series.data[index].y;
@@ -325,17 +344,19 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
             var name = series.name.split('|');
 
             $(seriesData).each(function (i, seriesObj) {
-              //console.log(seriesObj.name,name[1])
-              if (seriesObj.name.trim() === name[1].trim()) {
-                //console.log('match found', value)
+              console.log('99999999',seriesObj)
+              if (seriesObj.displayName.trim() === name[1].trim()) {
                 seriesObj.data.push(value);
               }
             });
 
-            if (categories.indexOf(name[0]) === -1) categories.push(name[0]);
+            if (categories.indexOf(name[0].trim()) === -1) categories.push(name[0].trim());
           });
           console.log(time,categories,seriesData);
           showGraph(time,categories,seriesData,'graphContainer');
+
+          setTimeout(function(){ updateMap(categories,seriesData);}, 500);
+          
         }
       }
     },
@@ -351,13 +372,16 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
               var seriesData = [
                 {
                   data: [],
+                  displayName:'Gage height, ft',
                   name:'Gage height, ft' 
                 },
                 {
                   data: [],
-                  name:'Difference between observed and predicted water surface elevation, feet' 
+                  displayName:'Difference between observed and predicted water surface elevation, feet',
+                  name:'Modeled gage height, ft' 
                 }
               ];
+              var categories = [];
               var value = null;
               $(this.series.chart.series).each(function (i, series) {
                 var name = series.name.split('|');
@@ -369,17 +393,20 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
 
                     $(seriesData).each(function (i, seriesObj) {
                       //console.log(seriesObj,name[1])
-                      if (seriesObj.name.trim() === name[1].trim()) {
+                      if (seriesObj.displayName.trim() === name[1].trim()) {
                         //console.log('match found', value)
                         seriesObj.data.push(value);
                       }
                     });
                   }
                 });
+
+                if (categories.indexOf(name[0].trim()) === -1) categories.push(name[0].trim());
               });
               mainChart.series[0].update(seriesData[0],false);
               mainChart.series[1].update(seriesData[1],true);
               mainChart.setTitle({text: 'Gage Height (ft) by gage for ' + time});
+              updateMap(categories,seriesData);
             }
           }
         },
@@ -397,7 +424,7 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
 			enabled: false
     },
     tooltip: {
-      shared: true
+      //shared: true
     },
 		xAxis: {
 			type: "datetime",
@@ -469,6 +496,64 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
 
 }
 
+function updateMap(categories, seriesData) {
+
+  //console.log('in updateMap',categories,seriesData);
+
+  for (var i = 0; i < categories.length; i++) {
+
+    boundaryGeoJSON.eachLayer(function (layer) {  
+      //console.log('here',layer)
+  
+      //console.log("TEST",categories[i],layer.feature.properties.siteName);
+      if(layer.feature.properties.siteName === categories[i]) {    
+        
+
+        var difference = seriesData[0].data[i] - seriesData[1].data[i];
+        //console.log("MATCH", difference);
+        if (difference < 0.5)                      layer.setStyle({color :'green'});
+        if (difference >= 0.5 && difference < 2.5) layer.setStyle({color :'yellow'});
+        if (difference >= 2.5)                     layer.setStyle({color :'red'});
+
+        
+      }
+  
+    });
+
+    //console.log('111111',sitesGeoJSON)
+    sitesGeoJSON.eachLayer(function (layer) {  
+      //console.log('here2222',layer)
+  
+      //console.log("TEST",categories[i],layer.feature.properties.siteName);
+      if(layer.feature.properties.siteName === categories[i]) {    
+        
+        //make sure there are 2 values
+        //if (seriesData[0].data[i] && seriesData[1].data[i]) {
+          var difference = seriesData[0].data[i] - seriesData[1].data[i];
+          //console.log("MATCH", difference );
+
+          var classString = 'wmm-pin wmm-white wmm-icon-triangle wmm-icon-black wmm-size-25';
+
+          if (difference < 0.5)                      classString = 'wmm-pin wmm-008000 wmm-icon-triangle wmm-icon-black wmm-size-25';
+          if (difference >= 0.5 && difference < 2.5) classString = 'wmm-pin wmm-ffff00 wmm-icon-triangle wmm-icon-black wmm-size-25';
+          if (difference >= 2.5)                     classString = 'wmm-pin wmm-ff0000 wmm-icon-triangle wmm-icon-black wmm-size-25';
+
+          var icon = L.divIcon({ className: classString });
+          layer.setIcon(icon);
+        //}
+
+
+        
+      }
+  
+    });
+
+
+  }
+
+
+}
+
 function addToLegend(text, classString) {
   console.log('adding to legend:',text,classString)
 
@@ -480,12 +565,12 @@ function addToLegend(text, classString) {
   }
 }
 
-function getColor(siteID) {
-  return siteID === '01354330' ? '#1b9e77' :
-         siteID === '01355475' ? '#d95f02' :
-         siteID === '01354500' ? '#7570b3' :
-                                 '#FFEDA0';
-}
+// function getColor(siteID) {
+//   return siteID === '01354330' ? '#1b9e77' :
+//          siteID === '01355475' ? '#d95f02' :
+//          siteID === '01354500' ? '#7570b3' :
+//                                  '#FFEDA0';
+// }
 
 function loadSites() {
   console.log('in loadsites');
@@ -495,12 +580,11 @@ function loadSites() {
     url: mohawkBoundaryURL,
     dataType: 'json',
     success: function (data) {
-      geoJSON(data, {
+      boundaryGeoJSON = geoJSON(data, {
         style: function(feature) {
           return {
             weight: 2,
             opacity: 1,
-            color: getColor(feature.properties.siteID),
             dashArray: '3',
             fillOpacity: 1
           };
@@ -591,10 +675,10 @@ function loadSites() {
             
             legend.addTo(theMap);
                                     
-            var geoJSONlayer = geoJSON(featureCollection, {
+            sitesGeoJSON = geoJSON(featureCollection, {
               pointToLayer: function (feature, latlng) {
 
-                var classString = 'wmm-pin wmm-orange wmm-icon-triangle wmm-icon-black wmm-size-25';
+                var classString = 'wmm-pin wmm-white wmm-icon-triangle wmm-icon-black wmm-size-25';
                 var text = 'USGS Gage';
 
                 if (feature.properties.siteType === 'webcam') {
@@ -640,9 +724,14 @@ function loadSites() {
 
                 //console.log('feature:',feature.properties)
               }
-            });
+            }).addTo(theMap);
+
+            addToLegend("Difference", "");
+            addToLegend("< 0.5", "wmm-square wmm-008000 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless");
+            addToLegend(">= 0.5 to < 2.5", "wmm-square wmm-ffff00 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless");
+            addToLegend(">= 2.5", "wmm-square wmm-ff0000 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless");
           
-            sitesLayer.addLayer(geoJSONlayer);
+            //sitesLayer.addLayer(geoJSONlayer);
             
             //initializeFilters(featureCollection);
 
