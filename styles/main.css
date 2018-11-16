@@ -111,9 +111,62 @@ z-index: 10;
   ===========================
 */
 
+/* .wmm-size-25:after {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    z-index: -2 !important;
+}
+.wmm-size-25:before {
+    position: absolute !important;
+    top: 50%;
+    left: 50%;
+    margin-left: -6px !important;
+    margin-top: -8.5px !important;
+    z-index: -1 !important;
+}
+.wmm-size-25 {
+    line-height: 24px !important;
+    text-align: center;
+    font-weight: bolder !important;
+    padding-right: 1px !important;
+    font-size: 9px !important;
+    padding-top: 1px !important;
+}
+.wmm-size-35:after {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    z-index: -2 !important;
+}
+.wmm-size-35:before {
+    position: absolute !important;
+    top: 50%;
+    left: 50%;
+    height: 21px !important;
+    width: 21px !important;
+    margin-left: -11px !important;
+    margin-top: -15px !important;
+    z-index: -1 !important;
+}
+.wmm-size-35 {
+    line-height: 33px !important;
+    text-align: center;
+    font-weight: bolder !important;
+    padding-right: 1px !important;
+    font-size: 10px !important;
+    padding-top: 1px !important;
+} */
+
 .wmm-ff0000:after{background-color:#ff0000;}.wmm-triangle.wmm-ff0000{border-bottom-color: rgba(0, 0, 0, 0.5);}.wmm-triangle.wmm-ff0000:after{color: #ff0000;}
 .wmm-008000:after{background-color:#008000;}.wmm-triangle.wmm-008000{border-bottom-color: rgba(0, 0, 0, 0.5);}.wmm-triangle.wmm-008000:after{color: #008000;}
 .wmm-ffff00:after{background-color:#ffff00;}.wmm-triangle.wmm-ffff00{border-bottom-color: rgba(0, 0, 0, 0.5);}.wmm-triangle.wmm-ffff00:after{color: #ffff00;}
+
+.graphIcon {
+  display: inline;
+  margin: 0px !important;
+  position: relative !important;
+}
 
 .info {
   padding: 6px 8px;

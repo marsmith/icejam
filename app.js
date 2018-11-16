@@ -46,6 +46,7 @@ var siteList = [];
 var featureCollection;
 var parameterList = [];
 var NWISivURL = 'https://nwis.waterservices.usgs.gov/nwis/iv/';
+var categories = ["MOHAWK RIVER AT LOCK 8 NEAR SCHENECTADY NY", "MOHAWK RIVER AT FREEMAN'S BRIDGE AT SCHENECTADY NY", "MOHAWK RIVER AT REXFORD NY", "MOHAWK RIVER AT VISCHER FERRY DAM NY"];
 //END user config variables 
 
 //START global variables
@@ -74,9 +75,9 @@ $(document).ready(function () {
 
   // make a bar with the buttons
 var zoomBar = L.easyBar([
-  L.easyButton( 'fa-plus fa-2x',  function(control, map){map.setZoom(map.getZoom()+1);}),
-  L.easyButton( 'fa-home fa-2x', function(control, map){map.setView([MapY, MapX], MapZoom);}),
-  L.easyButton( 'fa-minus fa-2x',  function(control, map){map.setZoom(map.getZoom()-1);})
+  L.easyButton( 'fa-plus',  function(control, map){map.setZoom(map.getZoom()+1);}),
+  L.easyButton( 'fa-home', function(control, map){map.setView([MapY, MapX], MapZoom);}),
+  L.easyButton( 'fa-minus',  function(control, map){map.setZoom(map.getZoom()-1);})
 ]);
 
 // add it to the map
@@ -262,16 +263,13 @@ function getRandomColor() {
 }
 
 function showGraph(time,categories,seriesData,graphContainer) {
-  console.log('showGraph:',categories,seriesData);
+  //console.log('showGraph:',categories,seriesData);
 
-  //clear out graphContainer
-  //$('#' + graphContainer).html('');
-  
   //chart init object
   var chartSetup = {
 
 		title:{
-			text:'Gage Height (ft) by gage for ' + new Date(time).toLocaleString()
+			text:'Observed and Expected Gage Heights ' + new Date(time).toLocaleString()
 		},
 		credits: {
 			enabled: false
@@ -280,11 +278,18 @@ function showGraph(time,categories,seriesData,graphContainer) {
       shared: true
     },
 		xAxis: {
-			categories: categories
+      categories: categories,
+      labels: {
+        align:'center',
+        formatter: function() {
+          return '<div style="text-align:center;">' + this.value + '</div>';
+        },
+        useHTML: true
+      }
     },
     yAxis: {
       title: { 
-        text: 'Feet'
+        text: 'Gage height, ft'
       },
       min: 5,
       max: 30
@@ -292,9 +297,7 @@ function showGraph(time,categories,seriesData,graphContainer) {
 		series: seriesData
   };
 
-  
   mainChart = Highcharts.chart(graphContainer, chartSetup);
-
 }
 
 function showGraphAllData(startTime,seriesData,graphContainer) {
@@ -322,17 +325,27 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
           console.log('big chart loaded');
           var seriesData = [
             {
-              data: [],
+              data: [ 
+                {name: "MOHAWK RIVER AT LOCK 8 NEAR SCHENECTADY NY", y: null},
+                {name: "MOHAWK RIVER AT FREEMAN'S BRIDGE AT SCHENECTADY NY", y: null},
+                {name: "MOHAWK RIVER AT REXFORD NY", y:null},
+                {name: "MOHAWK RIVER AT VISCHER FERRY DAM NY", y:null}
+              ],
               displayName:'Gage height, ft',
-              name:'Gage height, ft' 
+              name:'Gage height (observed)' 
             },
             {
-              data: [],
+              data: [ 
+                {name: "MOHAWK RIVER AT LOCK 8 NEAR SCHENECTADY NY", y: null},
+                {name: "MOHAWK RIVER AT FREEMAN'S BRIDGE AT SCHENECTADY NY", y: null},
+                {name: "MOHAWK RIVER AT REXFORD NY", y:null},
+                {name: "MOHAWK RIVER AT VISCHER FERRY DAM NY", y:null}
+              ],
               displayName:'Difference between observed and predicted water surface elevation, feet',
-              name:'Modeled gage height, ft' 
+              name:'Gage height (expected)'  
             }
           ];
-          var categories = [];
+          //var categories = [];
           var value,time;
           $(this.series).each(function (i, series) {
 
@@ -344,17 +357,42 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
             var name = series.name.split('|');
 
             $(seriesData).each(function (i, seriesObj) {
-              console.log('99999999',seriesObj)
               if (seriesObj.displayName.trim() === name[1].trim()) {
-                seriesObj.data.push(value);
+
+                //another loop over data array
+                $(seriesObj.data).each(function (i, dataObj) {
+
+                  if (dataObj.name === name[0].trim() ) {
+                    dataObj.y = value;
+                  }
+                
+                });
               }
             });
 
-            if (categories.indexOf(name[0].trim()) === -1) categories.push(name[0].trim());
+            //if (categories.indexOf(name[0].trim()) === -1) categories.push(name[0].trim());
           });
-          console.log(time,categories,seriesData);
-          showGraph(time,categories,seriesData,'graphContainer');
 
+          for (var i = 0; i < categories.length; i++) {       
+  
+            var difference;
+            
+            //check for null values
+            if (!seriesData[0].data[i].y == null || seriesData[1].data[i].y == null) {      
+              categories[i] = seriesData[1].data[i].name;
+              break;
+            }
+            else difference = (seriesData[0].data[i].y - seriesData[1].data[i].y).toFixed(2);
+
+            if (difference < 0.5)                      categories[i] = '<icon class="graphIcon wmm-square wmm-008000 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless">' + difference + '</icon><br><span>' + seriesData[0].data[i].name + '</span>';
+            if (difference >= 0.5 && difference < 2.5) categories[i] = '<icon class="graphIcon wmm-square wmm-ffff00 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless">' + difference + '</icon><br><span>' + seriesData[0].data[i].name + '</span>';
+            if (difference >= 2.5)                     categories[i] = '<icon class="graphIcon wmm-square wmm-ff0000 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless">' + difference + '</icon><br><span>' + seriesData[0].data[i].name + '</span>';
+
+          }
+
+          //console.log(time,categories,seriesData);
+
+          showGraph(time,categories,seriesData,'graphContainer');
           setTimeout(function(){ updateMap(categories,seriesData);}, 500);
           
         }
@@ -367,21 +405,33 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
         point: {
           events: {
             mouseOver: function () {
+
+              //special function for reloading middle graph with mouse-over date
               var seconds = this.x;
               var time = new Date(seconds).toLocaleString();
               var seriesData = [
                 {
-                  data: [],
+                  data: [ 
+                    {name: "MOHAWK RIVER AT LOCK 8 NEAR SCHENECTADY NY", y: null},
+                    {name: "MOHAWK RIVER AT FREEMAN'S BRIDGE AT SCHENECTADY NY", y: null},
+                    {name: "MOHAWK RIVER AT REXFORD NY", y:null},
+                    {name: "MOHAWK RIVER AT VISCHER FERRY DAM NY", y:null}
+                  ],
                   displayName:'Gage height, ft',
-                  name:'Gage height, ft' 
+                  name:'Gage height (observed)' 
                 },
                 {
-                  data: [],
+                  data: [ 
+                    {name: "MOHAWK RIVER AT LOCK 8 NEAR SCHENECTADY NY", y: null},
+                    {name: "MOHAWK RIVER AT FREEMAN'S BRIDGE AT SCHENECTADY NY", y: null},
+                    {name: "MOHAWK RIVER AT REXFORD NY", y:null},
+                    {name: "MOHAWK RIVER AT VISCHER FERRY DAM NY", y:null}
+                  ],
                   displayName:'Difference between observed and predicted water surface elevation, feet',
-                  name:'Modeled gage height, ft' 
+                  name:'Gage height (expected)' 
                 }
               ];
-              var categories = [];
+              //var categories = [];
               var value = null;
               $(this.series.chart.series).each(function (i, series) {
                 var name = series.name.split('|');
@@ -392,20 +442,53 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
                     value = item.y;
 
                     $(seriesData).each(function (i, seriesObj) {
-                      //console.log(seriesObj,name[1])
                       if (seriesObj.displayName.trim() === name[1].trim()) {
-                        //console.log('match found', value)
-                        seriesObj.data.push(value);
+        
+                        //another loop over data array
+                        $(seriesObj.data).each(function (i, dataObj) {
+
+                          if (dataObj.name === name[0].trim() ) {
+                            dataObj.y = value;
+                          }
+                        
+                        });
                       }
                     });
+
                   }
                 });
 
-                if (categories.indexOf(name[0].trim()) === -1) categories.push(name[0].trim());
+                //if (categories.indexOf(name[0].trim()) === -1) categories.push(name[0].trim());
               });
+
+              //some logic for added a colored label based on difference to X-axis labels
+              for (var i = 0; i < categories.length; i++) {       
+                
+                //check if either of the comparison values are null
+                if (!seriesData[0].data[i].y == null || seriesData[1].data[i].y == null) { 
+
+                  //if null, set the category to just text     
+                  categories[i] = seriesData[1].data[i].name;
+                  continue;
+                }
+
+                var difference = (seriesData[0].data[i].y - seriesData[1].data[i].y).toFixed(2);
+
+                
+    
+                if (difference < 0.5)                      categories[i] = '<icon class="graphIcon wmm-square wmm-008000 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless">' + difference + '</icon><br><span>' + seriesData[0].data[i].name + '</span>';
+                if (difference >= 0.5 && difference < 2.5) categories[i] = '<icon class="graphIcon wmm-square wmm-ffff00 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless">' + difference + '</icon><br><span>' + seriesData[0].data[i].name + '</span>';
+                if (difference >= 2.5)                     categories[i] = '<icon class="graphIcon wmm-square wmm-ff0000 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless">' + difference + '</icon><br><span>' + seriesData[0].data[i].name + '</span>';
+
+                //console.log(categories[i],seriesData[0].data[i].y, seriesData[1].data[i].y,difference)
+    
+              }
+
+              mainChart.xAxis[0].setCategories(categories);
+
               mainChart.series[0].update(seriesData[0],false);
               mainChart.series[1].update(seriesData[1],true);
-              mainChart.setTitle({text: 'Gage Height (ft) by gage for ' + time});
+              mainChart.setTitle({text: 'Observed and Expected Gage Heights ' + time});
               updateMap(categories,seriesData);
             }
           }
@@ -424,7 +507,7 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
 			enabled: false
     },
     tooltip: {
-      //shared: true
+      shared: true
     },
 		xAxis: {
 			type: "datetime",
@@ -502,22 +585,32 @@ function updateMap(categories, seriesData) {
 
   for (var i = 0; i < categories.length; i++) {
 
+    var category;
+    if (categories[i].indexOf('<span>') !== -1) category = categories[i].split('<span>')[1].split('</span>')[0];
+    else category = categories[i];
+
     boundaryGeoJSON.eachLayer(function (layer) {  
       //console.log('here',layer)
   
       //console.log("TEST",categories[i],layer.feature.properties.siteName);
-      if(layer.feature.properties.siteName === categories[i]) {    
+      if(layer.feature.properties.siteName === category) {    
         
 
-        var difference = seriesData[0].data[i] - seriesData[1].data[i];
-        //console.log("MATCH", difference);
-        if (difference < 0.5)                      layer.setStyle({color :'green'});
-        if (difference >= 0.5 && difference < 2.5) layer.setStyle({color :'yellow'});
-        if (difference >= 2.5)                     layer.setStyle({color :'red'});
+        //check if either of the comparison values are null
+        if (!seriesData[0].data[i].y == null || seriesData[1].data[i].y == null) { 
+          boundaryGeoJSON.resetStyle(layer);
+        }
 
-        
+        else {
+
+          var difference = seriesData[0].data[i].y - seriesData[1].data[i].y;
+          //console.log("MATCH", difference);
+          if (difference < 0.5)                      layer.setStyle({color :'green'});
+          if (difference >= 0.5 && difference < 2.5) layer.setStyle({color :'yellow'});
+          if (difference >= 2.5)                     layer.setStyle({color :'red'});
+
+        }
       }
-  
     });
 
     //console.log('111111',sitesGeoJSON)
@@ -525,37 +618,33 @@ function updateMap(categories, seriesData) {
       //console.log('here2222',layer)
   
       //console.log("TEST",categories[i],layer.feature.properties.siteName);
-      if(layer.feature.properties.siteName === categories[i]) {    
-        
-        //make sure there are 2 values
-        //if (seriesData[0].data[i] && seriesData[1].data[i]) {
-          var difference = seriesData[0].data[i] - seriesData[1].data[i];
-          //console.log("MATCH", difference );
+      if(layer.feature.properties.siteName === category) {    
 
-          var classString = 'wmm-pin wmm-white wmm-icon-triangle wmm-icon-black wmm-size-25';
+        var classString;
+        
+        if (!seriesData[0].data[i].y == null || seriesData[1].data[i].y == null) { 
+          classString = 'wmm-pin wmm-white wmm-icon-triangle wmm-icon-black wmm-size-25';
+        }
+
+        else {
+          var difference = seriesData[0].data[i].y - seriesData[1].data[i].y;
 
           if (difference < 0.5)                      classString = 'wmm-pin wmm-008000 wmm-icon-triangle wmm-icon-black wmm-size-25';
           if (difference >= 0.5 && difference < 2.5) classString = 'wmm-pin wmm-ffff00 wmm-icon-triangle wmm-icon-black wmm-size-25';
           if (difference >= 2.5)                     classString = 'wmm-pin wmm-ff0000 wmm-icon-triangle wmm-icon-black wmm-size-25';
 
-          var icon = L.divIcon({ className: classString });
-          layer.setIcon(icon);
-        //}
+        }
 
-
-        
+        //var icon = L.divIcon({ className: classString,html: 2.2 });
+        var icon = L.divIcon({ className: classString });
+        layer.setIcon(icon);
       }
-  
     });
-
-
   }
-
-
 }
 
 function addToLegend(text, classString) {
-  console.log('adding to legend:',text,classString)
+  //console.log('adding to legend:',text,classString)
 
   var id = text.replace(/\s+/g, '-').toLowerCase();
 
@@ -564,13 +653,6 @@ function addToLegend(text, classString) {
     $('#legend .siteIcon').attr('style', 'margin-top: -6px !important;');
   }
 }
-
-// function getColor(siteID) {
-//   return siteID === '01354330' ? '#1b9e77' :
-//          siteID === '01355475' ? '#d95f02' :
-//          siteID === '01354500' ? '#7570b3' :
-//                                  '#FFEDA0';
-// }
 
 function loadSites() {
   console.log('in loadsites');
@@ -726,10 +808,9 @@ function loadSites() {
               }
             }).addTo(theMap);
 
-            addToLegend("Difference", "");
-            addToLegend("< 0.5", "wmm-square wmm-008000 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless");
-            addToLegend(">= 0.5 to < 2.5", "wmm-square wmm-ffff00 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless");
-            addToLegend(">= 2.5", "wmm-square wmm-ff0000 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless");
+            addToLegend("No backwater from ice", "wmm-square wmm-008000 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless");
+            addToLegend("Moderate backwater from ice", "wmm-square wmm-ffff00 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless");
+            addToLegend("Significant backwater from ice", "wmm-square wmm-ff0000 wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless");
           
             //sitesLayer.addLayer(geoJSONlayer);
             
@@ -775,7 +856,7 @@ function loadSites() {
 
                     //if we have the matching site
                     if (site[1] === lookupsite[1] && lookupsite[2] === '00065') {
-                      console.log('lookupsite', site[1],site[2],lookupsite[1],lookupsite[2]);
+                      //console.log('lookupsite', site[1],site[2],lookupsite[1],lookupsite[2]);
 
                       //console.log(test.values[0])
                       $(test.values[0].value).each(function (i,val) {
@@ -822,16 +903,9 @@ function loadSites() {
               });
             });
 
-            //console.log('TEST',startTime,seriesData)
             showGraphAllData(startTime,seriesData, 'graphContainer2');
 
-
-
-            //getDayList(data);
-
-
       });    
-
     }
   });
 }
