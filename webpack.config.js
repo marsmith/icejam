@@ -1,7 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var pkg = require('./package.json');
-var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+//var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 // var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 var PATHS = {
@@ -29,7 +29,7 @@ module.exports = {
             'Util': "exports-loader?Util!bootstrap/js/dist/util"
         }),
         new webpack.DefinePlugin( {'VERSION': JSON.stringify(pkg.version) }),
-        new UglifyJSPlugin(),
+        // new UglifyJSPlugin(),
         // new BundleAnalyzerPlugin()
     ],
     devServer: {
