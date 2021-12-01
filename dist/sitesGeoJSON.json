@@ -1,6 +1,49 @@
 {
   "type": "FeatureCollection",
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+          "type": "Point",
+          "coordinates":  [ -74.191861,42.934 ]
+      },
+      "properties": {
+        "siteType": "gage",
+        "siteName": "MOHAWK RIVER AT AMSTERDAM NY",
+        "siteID": "01354083",
+        "photoURL": "https://ny.water.usgs.gov/images/StationPictures/01354083.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+          "type": "Point",
+          "coordinates":  [ -74.238082,42.952963]
+      },
+      "properties": {
+        "siteType": "gage",
+        "siteName": "MOHAWK R BLW PEPPER ISLAND AT FORT JOHNSON NY",
+        "siteID": "0135403025",
+        "photoURL": "https://ny.water.usgs.gov/images/StationPictures/0135403025.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+          "type": "Point",
+          "coordinates":  [ -74.372468,42.949017 ]
+      },
+      "properties": {
+        "siteType": "gage",
+        "siteName": "MOHAWK R ABOVE STATE HIGHWAY 30A AT FONDA NY",
+        "siteID": "01349527",
+        "photoURL": "https://ny.water.usgs.gov/images/StationPictures/01349527.jpg"
+      }
+    },
+
+
+
+
   {
     "type": "Feature",
     "geometry": {
@@ -119,6 +162,32 @@
        "webcamLink":"https://ny.water.usgs.gov/archived_files/MohawkIce/lock9fordrupal.html"
      }
     },
+    {
+      "type": "Feature",
+      "geometry": {
+         "type": "Point",
+         "coordinates":  [ -73.881688,42.851926 ]
+      },
+      "properties": {
+        "siteType": "webcam",
+        "siteName":"MOHAWK RIVER AT REXFORD NY WEBCAM",
+        "webcamURL":"<div id='rexford_webcam_popup'><div style='width: 100%' class='hdrelay-player' data-id='61a64ec75233cdcad76d7dcf'></div></div>",
+        "webcamLink":""
+      }
+     },
+     {
+      "type": "Feature",
+      "geometry": {
+         "type": "Point",
+         "coordinates":  [ -73.930918,42.831574 ]
+      },
+      "properties": {
+        "siteType": "webcam",
+        "siteName":"MOHAWK RIVER AT FREEMAN'S BRIDGE NY WEBCAM",
+        "webcamURL":"<div id='freemans_bridge_popup'><div style='width: 100%' class='hdrelay-player' data-id='61a64e1a7ee0bcc6eb462f8e'></div></div>",
+        "webcamLink":""
+      }
+     },
    {
     "type": "Feature",
     "geometry": {

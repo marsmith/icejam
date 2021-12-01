@@ -65,7 +65,7 @@ var siteColors = {
 //END user config variables 
 
 //START global variables
-var theMap;
+var theMap, miniMap;
 var baseMapLayer, basemaplayerLabels;
 var weatherLayer = {};
 var mainChart,bottomChart, weatherChart;
@@ -112,8 +112,6 @@ $(document).ready(function () {
   //set initial view
   theMap.setView([MapY, MapX], MapZoom);
 
-  //define layers
-  //sitesLayer = featureGroup().addTo(theMap);
 
   loadSites();
   setDates();
@@ -1440,6 +1438,16 @@ function loadSites() {
                 layer.bindPopup(popupContent);
               }
             }).addTo(theMap);
+
+            //minimap
+            var basemap_minimap = new L.TileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {minZoom: 0, maxZoom: 13, attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ' });
+            var sites_minimap = L.geoJson(featureCollection, {
+              pointToLayer: function (featuredata, latlng) {
+                return new L.CircleMarker(latlng, {radius: 2});
+              }
+            });
+            var layers = new L.LayerGroup([basemap_minimap, sites_minimap]);
+            miniMap = new L.Control.MiniMap(layers, { toggleDisplay: true, zoomLevelFixed: 7.4 }).addTo(theMap);
 
             addToLegend("No backwater from ice", "wmm-square wmm-196F3D wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless");
             addToLegend("Moderate backwater from ice", "wmm-square wmm-F1C40F wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless");

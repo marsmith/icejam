@@ -10,6 +10,8 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" / >
     <script src="./bundle.js"></script> 
     <script src="//manage.hdrelay.com/js/hdrelay.js" type="text/javascript"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.min.js" type="text/javascript"></script>
   </head>
   <body>
 
@@ -214,57 +216,61 @@
             <div class="col-lg-4">
 
                 <div class="card mb-2">
-
                     <div id="rotterdam_webcam">
-                        <script type="text/javascript">
-                            HDRelay.create({target:'rotterdam_webcam',id:'e40df97b-415c-4822-8311-53046d5f31fe'});
-                        </script>
-                    </div>
-
-                    <div class="card-body">
-                        <h5 class="card-title">Mohawk River at Lock 9 at Rotterdam Junction, NY</h5>
-                        <a href="https://ny.water.usgs.gov/archived_files/MohawkIce/lock9fordrupal.html" target="_blank" class="btn btn-outline-info">Open webcam</a>
+                        <div class="card-body">
+                            <h5 class="card-title">Mohawk River at Lock 9 at Rotterdam Junction, NY</h5>
+                            <div style="width: 100%" class="hdrelay-player" data-id="61a64fce5233cdcad76d7dd1"></div>
+                            <!-- <a href="https://ny.water.usgs.gov/archived_files/MohawkIce/lock9fordrupal.html" target="_blank" class="btn btn-outline-info">Open webcam</a> -->
+                        </div>
                     </div>
                 </div>
 
                 <div class="card mb-2">
                     <div id="lock8_webcam">
-                        <script type="text/javascript">
-                            HDRelay.create({target:'lock8_webcam',id:'5ddb37dd-1f78-4b01-a64c-58e80f8aee29'});
-                        </script>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Mohawk River at Lock 8, Schenectady, NY</h5>
-                        <a href="https://ny.water.usgs.gov/archived_files/MohawkIce/lock8fordrupal.html" target="_blank" class="btn btn-outline-info">Open webcam</a>
-
+                        <div class="card-body">
+                            <h5 class="card-title">Mohawk River at Lock 8, Schenectady, NY</h5>
+                            <div style="width: 100%" class="hdrelay-player" data-id="61a64ee37ee0bcc6eb462f8f"></div>
+                            <!-- <a href="https://ny.water.usgs.gov/archived_files/MohawkIce/lock8fordrupal.html" target="_blank" class="btn btn-outline-info mt-2">Open webcam</a> -->
+                        </div>
                     </div>
                 </div>
 
                 <div class="card mb-2">
-                    <div id="stockade_webcam">
-                        <script type="text/javascript">
-                            HDRelay.create({target:'stockade_webcam',id:'9c5c3a34-93fc-4122-8606-c603bc44bdd1'});
-                        </script>
-                    </div>
-
-                    <div class="card-body">
-                        <h5 class="card-title">Mohawk River at Union College Boat House, Schenectady, NY</h5>
-                        <a href="https://ny.water.usgs.gov/archived_files/MohawkIce/stockadefordrupal.html" target="_blank" class="btn btn-outline-info">Open webcam</a>
-
+                    <div id="union_boathouse_webcam">
+                        <div class="card-body">
+                            <h5 class="card-title">Mohawk River at Union College Boat House, Schenectady, NY</h5>
+                            <div style="width: 100%" class="hdrelay-player" data-id="61a64f037ee0bcc6eb462f90"></div>
+                            <!-- <a href="https://ny.water.usgs.gov/archived_files/MohawkIce/stockadefordrupal.html" target="_blank" class="btn btn-outline-info">Open webcam</a>Open webcam</a> -->
+                        </div>
                     </div>
                 </div>
 
                 <div class="card mb-2">
                     <div id="vischer_webcam">
-                        <script type="text/javascript">
-                            HDRelay.create({target:'vischer_webcam',id:'0281cf4e-eb9f-4c38-a250-10d202ecf499'});
-                        </script>
+                        <div class="card-body">
+                            <h5 class="card-title">Mohawk River at Vischer Ferry Dam, NY</h5>
+                            <div style="width: 100%" class="hdrelay-player" data-id="61a64f855233cdcad76d7dd0"></div>
+                            <!-- <a href="https://ny.water.usgs.gov/archived_files/MohawkIce/lock7fordrupal.html" target="_blank" class="btn btn-outline-info">Open webcam</a> -->
+                        </div>
                     </div>
+                </div>
 
-                    <div class="card-body">
-                        <h5 class="card-title">Mohawk River at Vischer Ferry Dam, NY</h5>
-                        <a href="https://ny.water.usgs.gov/archived_files/MohawkIce/lock7fordrupal.html" target="_blank" class="btn btn-outline-info">Open webcam</a>
+                <div class="card mb-2">
+                    <div id="freemans_bridge_webcam">
+                        <div class="card-body">
+                            <h5 class="card-title">Mohawk River at Freeman's Bridge, NY</h5>
+                            <div style="width: 100%" class="hdrelay-player" data-id="61a64e1a7ee0bcc6eb462f8e"></div>
+            
+                        </div>
+                    </div>
+                </div>
 
+                <div class="card mb-2">
+                    <div id="rexford_webcam">
+                        <div class="card-body">
+                            <h5 class="card-title">Mohawk River at Rexford, NY</h5>
+                            <div style="width: 100%" class="hdrelay-player" data-id="61a64ec75233cdcad76d7dcf"></div>
+                        </div>
                     </div>
                 </div>
 
