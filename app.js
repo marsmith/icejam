@@ -1008,6 +1008,7 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
 
               //get index of last value
               var index = series.data.length - 1;
+              //console.log('TEST', series.data, lastgoodIndex)
               time = series.data[lastgoodIndex].x;
               value = series.data[lastgoodIndex].y;
 
@@ -1548,7 +1549,7 @@ function loadSites() {
                   }
                   else {
                     console.warn('BAD DATA was found.  Check into it:', item)
-                    return [seconds,null];
+                    return [seconds,-999999];
                   }
 
                 });
