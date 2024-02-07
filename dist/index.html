@@ -216,11 +216,18 @@
             <div class="col-lg-4">
 
                 <div class="card mb-2">
-                    <div id="rotterdam_webcam">
+                    <div id="lock9_webcam">
                         <div class="card-body">
                             <h5 class="card-title">Mohawk River at Lock 9 at Rotterdam Junction, NY</h5>
-                            <div style="width: 100%" class="hdrelay-player" data-id="61a64fce5233cdcad76d7dd1"></div>
-                            <!-- <a href="https://ny.water.usgs.gov/archived_files/MohawkIce/lock9fordrupal.html" target="_blank" class="btn btn-outline-info">Open webcam</a> -->
+                            <!-- <div style="width: 100%" class="hdrelay-player" data-id="61a64fce5233cdcad76d7dd1"></div> -->
+
+                            <!-- Div that is going to hold web player. Size set to keep player space before load. -->
+                            <div style="width: 100%" id="lock9_holder"></div>
+                            <!-- Code to show web player. Must go after div tag. -->
+                            <script type="text/javascript">
+                            HDRelay.create({target:"lock9_holder",id:"61a64fce5233cdcad76d7dd1"});
+
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -229,8 +236,13 @@
                     <div id="lock8_webcam">
                         <div class="card-body">
                             <h5 class="card-title">Mohawk River at Lock 8, Schenectady, NY</h5>
-                            <div style="width: 100%" class="hdrelay-player" data-id="61a64ee37ee0bcc6eb462f8f"></div>
-                            <!-- <a href="https://ny.water.usgs.gov/archived_files/MohawkIce/lock8fordrupal.html" target="_blank" class="btn btn-outline-info mt-2">Open webcam</a> -->
+                            <!-- <div style="width: 100%" class="hdrelay-player" data-id="61a64ee37ee0bcc6eb462f8f"></div> -->
+
+                            <div style="width: 100%" id="lock8_holder"></div>
+                            <!-- Code to show web player. Must go after div tag. -->
+                            <script type="text/javascript">
+                            HDRelay.create({target:"lock8_holder",id:"61a64ee37ee0bcc6eb462f8f"});
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -239,18 +251,30 @@
                     <div id="union_boathouse_webcam">
                         <div class="card-body">
                             <h5 class="card-title">Mohawk River at Union College Boat House, Schenectady, NY</h5>
-                            <div style="width: 100%" class="hdrelay-player" data-id="61a64f037ee0bcc6eb462f90"></div>
-                            <!-- <a href="https://ny.water.usgs.gov/archived_files/MohawkIce/stockadefordrupal.html" target="_blank" class="btn btn-outline-info">Open webcam</a>Open webcam</a> -->
+                            <!-- <div style="width: 100%" class="hdrelay-player" data-id="61a64f037ee0bcc6eb462f90"></div> -->
+
+                            <div style="width: 100%" id="union_boathouse_holder"></div>
+                            <!-- Code to show web player. Must go after div tag. -->
+                            <script type="text/javascript">
+                            HDRelay.create({target:"union_boathouse_holder",id:"61a64f037ee0bcc6eb462f90"});
+                            </script>
                         </div>
                     </div>
                 </div>
 
                 <div class="card mb-2">
-                    <div id="vischer_webcam">
+                    <div id="lock7_webcam">
                         <div class="card-body">
                             <h5 class="card-title">Mohawk River at Vischer Ferry Dam, NY</h5>
-                            <div style="width: 100%" class="hdrelay-player" data-id="61a64f855233cdcad76d7dd0"></div>
-                            <!-- <a href="https://ny.water.usgs.gov/archived_files/MohawkIce/lock7fordrupal.html" target="_blank" class="btn btn-outline-info">Open webcam</a> -->
+                            <!-- <div style="width: 100%" class="hdrelay-player" data-id="61a64f855233cdcad76d7dd0"></div> -->
+
+                            <!-- Div that is going to hold web player. Size set to keep player space before load. -->
+                            <div style="width: 100%" id="lock7_holder"></div>
+                            <!-- Code to show web player. Must go after div tag. -->
+                            <script type="text/javascript">
+                            HDRelay.create({target:"lock7_holder",id:"61a64f855233cdcad76d7dd0"});
+                            </script>
+
                         </div>
                     </div>
                 </div>
@@ -259,8 +283,14 @@
                     <div id="freemans_bridge_webcam">
                         <div class="card-body">
                             <h5 class="card-title">Mohawk River at Freeman's Bridge, NY</h5>
-                            <div style="width: 100%" class="hdrelay-player" data-id="61a64e1a7ee0bcc6eb462f8e"></div>
-            
+
+                            <!-- Div that is going to hold web player. Size set to keep player space before load. -->
+                            <div style="width: 100%" id="freemans_holder"></div>
+                            <!-- Code to show web player. Must go after div tag. -->
+                            <script type="text/javascript">
+                            HDRelay.create({target:"freemans_holder",id:"61a64e1a7ee0bcc6eb462f8e"});    
+
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -269,7 +299,15 @@
                     <div id="rexford_webcam">
                         <div class="card-body">
                             <h5 class="card-title">Mohawk River at Rexford, NY</h5>
-                            <div style="width: 100%" class="hdrelay-player" data-id="61a64ec75233cdcad76d7dcf"></div>
+                            <!-- <div style="width: 100%" class="hdrelay-player" data-id="61a64ec75233cdcad76d7dcf"></div> -->
+
+                            <!-- Div that is going to hold web player. Size set to keep player space before load. -->
+                            <div style="width: 100%" id="rexford_holder"></div>
+                            <!-- Code to show web player. Must go after div tag. -->
+                            <script type="text/javascript">
+                            HDRelay.create({target:"rexford_holder",id:"61a64ec75233cdcad76d7dcf"});
+
+                            </script>
                         </div>
                     </div>
                 </div>
