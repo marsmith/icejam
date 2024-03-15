@@ -17,9 +17,13 @@ module.exports = {
     module: {
         rules: [
             { test: /\.css$/, use: ['style-loader', 'css-loader' ] },
-            { test: /\.png$/, loader: 'url-loader?limit=8192', query: { mimetype: 'image/png' } },
-            { test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/, loader: 'url-loader' },
-            { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },
+            { test: /\.png$/, use: [{ loader: 'url-loader', options: { limit: 8192, mimetype: 'image/jpg' } }]},
+            { test: /\.(woff|woff2|eot|ttf|otf)$/,
+            loader: "file-loader",
+            options: {
+              outputPath: "../fonts",
+            } },
+            { test: /\.js?$/, exclude: '/node_modules/', use: { loader: 'babel-loader' } },
             { test: /\.html$/, loader: 'raw-loader' }
         ]
     },
@@ -34,7 +38,6 @@ module.exports = {
     ],
     devServer: {
         open: true,
-        contentBase: PATHS.dist,
-        watchContentBase: true
+        static: path.resolve(PATHS.dist)
     }
 };

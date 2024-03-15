@@ -13,11 +13,16 @@
 
 //CSS imports
 import 'bootstrap/dist/css/bootstrap.css';
-import 'font-awesome/css/font-awesome.css';
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
+// import 'font-awesome/css/font-awesome.css';
 import 'leaflet/dist/leaflet.css';
-import 'marker-creator/stylesheets/css/markers.css';
+//import 'marker-creator/stylesheets/css/markers.css';
 import 'select2/dist/css/select2.css';
 import 'bootstrap-datepicker/dist/css/bootstrap-datepicker.css';
+import './styles/markers.css'
 import './styles/main.css';
 
 //ES6 imports
@@ -1271,7 +1276,7 @@ function addToLegend(text, classString) {
   var id = text.replace(/\s+/g, '-').toLowerCase();
 
   if (document.getElementById(id) === null) {
-    $('#legend').append('<span id="' + id + '" class="site"><icon class="siteIcon ' + classString + '" /></div>' + text + '</span>');
+    $('#legend').append('<span id="' + id + '" class="site"><icon class="siteIcon ' + classString + '" />' + text + '</span>');
     $('#legend .siteIcon').attr('style', 'margin-top: -6px !important;');
   }
 }

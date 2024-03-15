@@ -287,10 +287,10 @@ body,html{
   margin: 0 !important;
 }
 
-.wmm-196F3D:after{background-color:#196F3D;}.wmm-triangle.wmm-196F3D{border-bottom-color: rgba(0, 0, 0, 0.5);}.wmm-triangle.wmm-196F3D:after{color: #196F3D;}
+/* .wmm-196F3D:after{background-color:#196F3D;}.wmm-triangle.wmm-196F3D{border-bottom-color: rgba(0, 0, 0, 0.5);}.wmm-triangle.wmm-196F3D:after{color: #196F3D;}
 .wmm-F1C40F:after{background-color:#F1C40F;}.wmm-triangle.wmm-F1C40F{border-bottom-color: rgba(0, 0, 0, 0.5);}.wmm-triangle.wmm-F1C40F:after{color: #F1C40F;}
 .wmm-E74C3C:after{background-color:#E74C3C;}.wmm-triangle.wmm-E74C3C{border-bottom-color: rgba(0, 0, 0, 0.5);}.wmm-triangle.wmm-E74C3C:after{color: #E74C3C;}
-
+ */
 
 .graphIcon {
   display: inline;
@@ -334,3 +334,4 @@ circle {
   fill: none;
   stroke: #bcf;
 }
+
