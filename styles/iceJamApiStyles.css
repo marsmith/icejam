@@ -1,0 +1,27 @@
+
+
+img{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.images{
+  margin:auto;
+}
+
+.api-basic{
+  grid-column: 1 ;
+  display: grid;
+  justify-items: center;
+}
+
+.buttons{
+  display: inline-flex;
+}
+
+.btns{
+  margin:auto;
+  font-size: smaller;
+  /* display: inline-flex; */
+  /* width: 10px; */
+}

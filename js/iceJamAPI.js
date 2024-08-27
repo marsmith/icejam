@@ -7,8 +7,16 @@ const l8_image = document.querySelector('#lock8-image')
 const rx_image = document.querySelector('#rx-image')
 const fb_image = document.querySelector('#fb-image')
 const ub_image = document.querySelector('#ub-image')
-const height = "250"
-const width = "375"
+
+//////////////////////////////////////////////////
+// function that pastes aws links together
+//////////////////////////////////////////////////
+function img_link(string){
+    let op = "https://usgs-nims-images.s3.amazonaws.com/overlay/"
+    let end = "_newest.jpg"
+    let result = op.concat(string,'/', string, end)
+    return(result)
+}
 
 //////////////////////////////////////////////////
 // define std json; nims url keys
@@ -63,26 +71,26 @@ const nimsImageLinkJson = {
 };
 
 //////////////////////////////////////////////////
-// function that pastes aws links together
+// assign each home image
 //////////////////////////////////////////////////
-function img_link(string){
-    op = "https://usgs-nims-images.s3.amazonaws.com/overlay/"
-    end = "_newest.jpg"
-    result = op.concat(string,'/', string, end)
-    return(result)
+function pop_home_imgs(site){
+    let image_div = nimsImageLinkJson[site].image_div
+    let hm_img = nimsImageLinkJson[site].home
+    var home_image = `<img  src=${hm_img} class="im">`
+    image_div.innerHTML = home_image
+}
+
+//  populate home images
+for (siteName in nimsImageLinkJson){
+    pop_home_imgs(siteName)
 }
 
 //////////////////////////////////////////////////
-// assign each view to a button
+// assign each cam view to relevant button
 //////////////////////////////////////////////////
 function populate_api_images(site){
-    // let api_div = `#${site}-api`
-
     // populate home image
     let image_div = nimsImageLinkJson[site].image_div
-    let hm_img = nimsImageLinkJson[site].home
-    var home_image = `<img width=${width} height=${height} src=${hm_img} class="im">`
-    image_div.innerHTML = home_image
 
     // instantiate button-populate variables
     var pop_home = ''
@@ -107,110 +115,148 @@ function populate_api_images(site){
 
     if (site === 'l9'){
         document.querySelector("[l9-hm-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_home} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_home} class="im">`;
         });
         document.querySelector("[l9-ds-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_ds} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_ds} class="im">`;
         });
         document.querySelector("[l9-us-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_us} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_us} class="im">`;
         });
         document.querySelector("[l9-xs-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_across} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_across} class="im">`;
         });
         document.querySelector("[l9-zm-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_zoom} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_zoom} class="im">`;
         });
     } else if (site === 'l7') {
         document.querySelector("[l7-hm-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_home} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_home} class="im">`;
         });
         document.querySelector("[l7-ds-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_ds} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_ds} class="im">`;
         });
         document.querySelector("[l7-us-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_us} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_us} class="im">`;
         });
         document.querySelector("[l7-xs-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_across} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_across} class="im">`;
         });
         document.querySelector("[l7-zm-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_zoom} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_zoom} class="im">`;
         });
         document.querySelector("[l7-xtra-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_extra} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_extra} class="im">`;
         });
     } else if (site === 'l8') {
         document.querySelector("[l8-hm-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_home} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_home} class="im">`;
         });
         document.querySelector("[l8-us-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_us} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_us} class="im">`;
         });
         document.querySelector("[l8-xs-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_across} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_across} class="im">`;
         });
         // document.querySelector("[l8-zm-btn]").addEventListener('click', ()=>{
-        //     image_div.innerHTML = `<img width=${width} height=${height} src=${pop_zoom} class="im">`;
+        //     image_div.innerHTML = `<img  src=${pop_zoom} class="im">`;
         // });
         // document.querySelector("[l8-ds-btn]").addEventListener('click', ()=>{
-        //     image_div.innerHTML = `<img width=${width} height=${height} src=${pop_ds} class="im">`;
+        //     image_div.innerHTML = `<img  src=${pop_ds} class="im">`;
         // });
     } else if (site === 'rx') {
         document.querySelector("[rx-hm-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_home} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_home} class="im">`;
         });
         document.querySelector("[rx-ds-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_ds} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_ds} class="im">`;
         });
         document.querySelector("[rx-us-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_us} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_us} class="im">`;
         });
         document.querySelector("[rx-xs-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_across} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_across} class="im">`;
         });
         document.querySelector("[rx-zm-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_zoom} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_zoom} class="im">`;
         });
     } else if (site === 'ub') {
         document.querySelector("[ub-hm-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_home} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_home} class="im">`;
         });
         document.querySelector("[ub-us-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_us} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_us} class="im">`;
         });
         document.querySelector("[ub-xs-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_across} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_across} class="im">`;
         });
         // document.querySelector("[ub-ds-btn]").addEventListener('click', ()=>{
-        //     image_div.innerHTML = `<img width=${width} height=${height} src=${pop_ds} class="im">`;
+        //     image_div.innerHTML = `<img  src=${pop_ds} class="im">`;
         // });
         // document.querySelector("[ub-zm-btn]").addEventListener('click', ()=>{
-        //     image_div.innerHTML = `<img width=${width} height=${height} src=${pop_zoom} class="im">`;
+        //     image_div.innerHTML = `<img  src=${pop_zoom} class="im">`;
         // });
     } else if (site === 'fb') {
         document.querySelector("[fb-hm-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_home} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_home} class="im">`;
         });
         document.querySelector("[fb-ds-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_ds} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_ds} class="im">`;
         });
         document.querySelector("[fb-us-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_us} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_us} class="im">`;
         });
         document.querySelector("[fb-zm-btn]").addEventListener('click', ()=>{
-            image_div.innerHTML = `<img width=${width} height=${height} src=${pop_zoom} class="im">`;
+            image_div.innerHTML = `<img  src=${pop_zoom} class="im">`;
         });
         // document.querySelector("[fb-xs-btn]").addEventListener('click', ()=>{
-        //     image_div.innerHTML = `<img width=${width} height=${height} src=${pop_across} class="im">`;
+        //     image_div.innerHTML = `<img  src=${pop_across} class="im">`;
         // });
     }
 };
 
-// call to assign
-populate_api_images('l9')
-populate_api_images('l8')
-populate_api_images('rx')
-populate_api_images('ub')
-populate_api_images('fb')
-populate_api_images('l7')
+function button_click_pop(){
+    var buttons = document.getElementsByClassName('buttons')
+    for (var i=0; i<buttons.length; i++) {
+        id = buttons[i].parentNode.id.split('-')[0] // grab api-div id
+        buttons[i].addEventListener('click', populate_api_images(id)) // pop by id
+    }
+}
+button_click_pop()
+
+//////////////////////////////////////////////////
+// popup window function
+//////////////////////////////////////////////////
+var insert_js = `   <script src=\"../js/popout.js\" type=\"text/javascript\"> </script>
+                    <link rel=\" stylesheet \"  href=\"../styles/popout.css\" /> 
+                `                
+function openWin(site_div, input=insert_js) {
+    var popup;
+    if (popup && !popup.closed) {
+        popup.focus();
+    } else {
+        id = site_div.split('-')[0]
+        populate_api_images(id)
+
+        // grab div, insert js script
+        var div_inner = document.getElementById(site_div)
+        div_inner.insertAdjacentHTML('beforeend', input )
+        var divText = div_inner.outerHTML
+        
+        // define window settings, open, close
+        popup = window.open('', '', 'max-width=100%, height=auto');
+
+        // refresh on popup close
+        var timer = setInterval(function() { 
+            if(popup.closed) {
+                clearInterval(timer);
+                window.location.reload()
+            }}, 100);
+        
+        // handle open and close events 
+        var doc = popup.document;
+        doc.open();
+        doc.write(divText);
+        doc.close();
+        }
+    }

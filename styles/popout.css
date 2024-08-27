@@ -1,0 +1,32 @@
+
+#grid{
+  display: grid;
+  /* grid-template: repeat(10 50px)/ repeat(10 50px); */
+}
+
+.api-basic{
+  border: solid;
+  grid-column: 1 ;
+  display: grid;
+  justify-items: center;
+  /* grid template:; */
+}
+
+.images{
+  margin:auto;
+}
+
+.btns{
+  margin: auto;
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  font-size: xx-large;
+  justify-content: center;
+}
+
+
+/* 
+.buttons{
+  border: solid;
+} */

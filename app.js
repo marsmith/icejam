@@ -11,6 +11,9 @@
 // updates:
 // 10.27.2018 - MJS - Created
 console.log('limping')
+//////////////////////////////////////
+//      IMPORTS AND DEFINTIONS      //
+//////////////////////////////////////
 //CSS imports
 import 'bootstrap/dist/css/bootstrap.css';
 import '@fortawesome/fontawesome-free/js/fontawesome'
@@ -76,9 +79,12 @@ var weatherLayer = {};
 var mainChart,bottomChart, weatherChart;
 var sitesGeoJSON, boundaryGeoJSON;
 var lastDateVal, keyboardVal,minKeyboardVal, maxKeyboardVal;
-
 //END global variables
 
+
+//////////////////////////////////////
+//           MAP SECTION            //
+//////////////////////////////////////
 //instantiate map
 $(document).ready(function () {
   console.log('Application Information: ' + process.env.NODE_ENV + ' ' + 'version ' + VERSION);
@@ -117,13 +123,15 @@ $(document).ready(function () {
   //set initial view
   theMap.setView([MapY, MapX], MapZoom);
 
-
+  //////////////////////////////////////
+  //          PULL CHART DATA         //
+  //////////////////////////////////////
   loadSites();
   setDates();
 
   //testing
-  getMesonetData(); //commented out -MP
-  //getWeatherServiceData();
+  getMesonetData(); 
+  getWeatherServiceData();
 
 
   $('.datepicker').datepicker({
