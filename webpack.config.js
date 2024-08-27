@@ -1,7 +1,9 @@
+
 var path = require('path');
 var webpack = require('webpack');
 var pkg = require('./package.json');
-//var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
+// var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 // var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 var PATHS = {
@@ -9,6 +11,7 @@ var PATHS = {
   };
 
 module.exports = {
+    mode: 'production',
     entry: './app.js',
     output: {
         filename: 'bundle.js',
@@ -25,7 +28,7 @@ module.exports = {
             } },
             { test: /\.js?$/, exclude: '/node_modules/', use: { loader: 'babel-loader' } },
             { test: /\.html$/, loader: 'raw-loader' }
-        ]
+        ],
     },
     plugins: [
         new webpack.ProvidePlugin({

@@ -10,7 +10,7 @@
 
 // updates:
 // 10.27.2018 - MJS - Created
-
+console.log('limping')
 //CSS imports
 import 'bootstrap/dist/css/bootstrap.css';
 import '@fortawesome/fontawesome-free/js/fontawesome'
@@ -122,7 +122,7 @@ $(document).ready(function () {
   setDates();
 
   //testing
-  getMesonetData();
+  getMesonetData(); //commented out -MP
   //getWeatherServiceData();
 
 
@@ -1724,3 +1724,4 @@ function getRandomAssociatedColor(color) {
   }
   return result;
 }
+
