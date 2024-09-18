@@ -19,7 +19,7 @@ function img_link(string){
 }
 
 //////////////////////////////////////////////////
-// define std json; nims url keys
+//               nims url key json              //
 //////////////////////////////////////////////////
 const nimsImageLinkJson = {
     'rx' : {
@@ -111,7 +111,8 @@ function populate_api_images(site){
         view.includes('zoom') ? pop_zoom = site_json[view] : 'null';
         view.includes('extra') ? pop_extra = site_json[view] : 'null';
     };
-    console.log(pop_across, pop_ds, pop_us, pop_home, pop_zoom, pop_extra)
+    
+    // console.log(pop_across, pop_ds, pop_us, pop_home, pop_zoom, pop_extra)
 
     if (site === 'l9'){
         document.querySelector("[l9-hm-btn]").addEventListener('click', ()=>{
@@ -158,12 +159,6 @@ function populate_api_images(site){
         document.querySelector("[l8-xs-btn]").addEventListener('click', ()=>{
             image_div.innerHTML = `<img  src=${pop_across} class="im">`;
         });
-        // document.querySelector("[l8-zm-btn]").addEventListener('click', ()=>{
-        //     image_div.innerHTML = `<img  src=${pop_zoom} class="im">`;
-        // });
-        // document.querySelector("[l8-ds-btn]").addEventListener('click', ()=>{
-        //     image_div.innerHTML = `<img  src=${pop_ds} class="im">`;
-        // });
     } else if (site === 'rx') {
         document.querySelector("[rx-hm-btn]").addEventListener('click', ()=>{
             image_div.innerHTML = `<img  src=${pop_home} class="im">`;
@@ -190,12 +185,6 @@ function populate_api_images(site){
         document.querySelector("[ub-xs-btn]").addEventListener('click', ()=>{
             image_div.innerHTML = `<img  src=${pop_across} class="im">`;
         });
-        // document.querySelector("[ub-ds-btn]").addEventListener('click', ()=>{
-        //     image_div.innerHTML = `<img  src=${pop_ds} class="im">`;
-        // });
-        // document.querySelector("[ub-zm-btn]").addEventListener('click', ()=>{
-        //     image_div.innerHTML = `<img  src=${pop_zoom} class="im">`;
-        // });
     } else if (site === 'fb') {
         document.querySelector("[fb-hm-btn]").addEventListener('click', ()=>{
             image_div.innerHTML = `<img  src=${pop_home} class="im">`;
@@ -209,12 +198,13 @@ function populate_api_images(site){
         document.querySelector("[fb-zm-btn]").addEventListener('click', ()=>{
             image_div.innerHTML = `<img  src=${pop_zoom} class="im">`;
         });
-        // document.querySelector("[fb-xs-btn]").addEventListener('click', ()=>{
-        //     image_div.innerHTML = `<img  src=${pop_across} class="im">`;
-        // });
     }
 };
 
+
+///////////////////////////////////////
+//   POPULATE IMAGE ON BUTTON PRESS  //
+///////////////////////////////////////
 function button_click_pop(){
     var buttons = document.getElementsByClassName('buttons')
     for (var i=0; i<buttons.length; i++) {
@@ -224,27 +214,27 @@ function button_click_pop(){
 }
 button_click_pop()
 
+
 //////////////////////////////////////////////////
 // popup window function
-//////////////////////////////////////////////////
-var insert_js = `   <script src=\"../js/popout.js\" type=\"text/javascript\"> </script>
-                    <link rel=\" stylesheet \"  href=\"../styles/popout.css\" /> 
-                `                
+//////////////////////////////////////////////////                
 function openWin(site_div, input=insert_js) {
     var popup;
-    if (popup && !popup.closed) {
+    // if (popup && !popup.closed) {
+    if (popup) {
         popup.focus();
     } else {
+        // grab site id
         id = site_div.split('-')[0]
         populate_api_images(id)
 
         // grab div, insert js script
         var div_inner = document.getElementById(site_div)
         div_inner.insertAdjacentHTML('beforeend', input )
-        var divText = div_inner.outerHTML
         
         // define window settings, open, close
         popup = window.open('', '', 'max-width=100%, height=auto');
+        // document.getElementById("div_top1").setAttribute("id", "div_top2")
 
         // refresh on popup close
         var timer = setInterval(function() { 
@@ -255,8 +245,14 @@ function openWin(site_div, input=insert_js) {
         
         // handle open and close events 
         var doc = popup.document;
+        var divText = div_inner.outerHTML
         doc.open();
         doc.write(divText);
         doc.close();
         }
     }
+
+// format text to insert js and css script tags
+var insert_js = `<script src=\"../js/popout.js\" type=\"text/javascript\"> </script>
+<link rel=\" stylesheet \"  href=\"../styles/popout.css\" /> 
+`  

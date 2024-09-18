@@ -1,7 +1,7 @@
 
 var path = require('path');
 var webpack = require('webpack');
-var pkg = require('./package.json');
+var pkg = require('../package.json');
 
 // var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 // var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;

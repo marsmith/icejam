@@ -56,11 +56,13 @@ var mesonetServiceURL = 'https://api.nysmesonet.org/data/dynserv/timeseries2';
 var siteList = [];
 var featureCollection;
 var parameterList = [];
-var NWISivURL = 'https://nwis.waterservices.usgs.gov/nwis/iv/';
+var NWISivURL = 'https://nwis.waterservices.usgs.gov/nwis/iv/'; // see line 1372
 var categories = ["MOHAWK RIVER AT LOCK 9 AT ROTTERDAM JUNCTION NY", "MOHAWK RIVER AT LOCK 8 NEAR SCHENECTADY NY", "MOHAWK RIVER AT FREEMAN'S BRIDGE AT SCHENECTADY NY", "MOHAWK RIVER AT REXFORD NY", "MOHAWK RIVER AT VISCHER FERRY DAM NY"];
 var observedColor = '#1F42DD';
 var predictedColor = '#E23F22';
 var siteColors = {
+  '01354230:00065': '#229954', // added -MP
+  '01354230:99067': '#8E44AD', // added -MP
   '01354330:00065': '#1A5276',
   '01354330:99067': '#2980B9',
   '01354500:00060': '#2C3E50',
@@ -230,6 +232,10 @@ String.prototype.trim = function() {
   return this.replace(/^\s+|\s+$/g, '');
 };
 
+
+///////////////////////////////////////
+//           WEATHER DATA            //
+///////////////////////////////////////
 function getWeatherServiceData() {
 
   $.ajax({
@@ -429,6 +435,10 @@ function getWeatherServiceData() {
 
 }
 
+
+///////////////////////////////////////
+//          PROBABILITY TEXT         //
+///////////////////////////////////////
 function getProbabilityText(val) {
   if (val === 0) return '<b>None</b><br/>';
   if (val === 1) return '<b>Slight Chance</b><br/>';
@@ -437,6 +447,9 @@ function getProbabilityText(val) {
   if (val === 4) return '<b>Definite</b><br/>';
 }
 
+///////////////////////////////////////
+//              MESONET              //
+///////////////////////////////////////
 function  getMesonetData() {
 
   //get dates
@@ -661,6 +674,9 @@ function  getMesonetData() {
 
 }
 
+///////////////////////////////////////
+//          INCREMENT CHART          //
+///////////////////////////////////////
 function incrementChart(direction) {
   //console.log(direction + ' arrow, have a value', keyboardVal,minKeyboardVal,maxKeyboardVal);
 
@@ -673,6 +689,9 @@ function incrementChart(direction) {
   redrawTopChartOnHover(keyboardVal,bottomChart.series);
 }
 
+///////////////////////////////////////
+//             POPUP MAP            //
+///////////////////////////////////////
 function openPopup(e) {
 
   console.log('properties',e)
@@ -688,6 +707,9 @@ function openGraphingModule() {
   $('#graphModal').modal('show');
 }
 
+///////////////////////////////////////
+//           NWIS DATA CALL          //
+///////////////////////////////////////
 function downloadData() {
   
   if (seriesData) {
@@ -728,6 +750,9 @@ function downloadData() {
 
 }
 
+///////////////////////////////////////
+//          SAVE DATA IN CSV         //
+///////////////////////////////////////
 function downloadFile(data,filename) {
 	var blob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
 	if (navigator.msSaveBlob) { // IE 10+
@@ -759,6 +784,9 @@ function getRandomColor() {
   return color;
 }
 
+///////////////////////////////////////
+//          HYDROLOGY GRAPH          //
+///////////////////////////////////////
 function showGraph(time,categories,seriesData,graphContainer) {
   console.log('showGraph:',categories,seriesData);
 
@@ -801,6 +829,10 @@ function showGraph(time,categories,seriesData,graphContainer) {
   mainChart = Highcharts.chart(graphContainer, chartSetup);
 }
 
+
+///////////////////////////////////////
+//          HOVER FUNCTION           //
+///////////////////////////////////////
 function redrawTopChartOnHover(seconds,chartSeries) {
 
   //update keyboardval
@@ -811,7 +843,9 @@ function redrawTopChartOnHover(seconds,chartSeries) {
   var seriesData = [
     {
       data: [ 
-        {name: "MOHAWK RIVER AT LOCK 9 AT ROTTERDAM JUNCTION NY", y: null, visible: false},
+        // turn on visibility
+        // {name: "MOHAWK RIVER AT LOCK 9 AT ROTTERDAM JUNCTION NY", y: null, visible: false},
+        {name: "MOHAWK RIVER AT LOCK 9 AT ROTTERDAM JUNCTION NY", y: null},
         {name: "MOHAWK RIVER AT LOCK 8 NEAR SCHENECTADY NY", y: null},
         {name: "MOHAWK RIVER AT FREEMAN'S BRIDGE AT SCHENECTADY NY", y: null},
         {name: "MOHAWK RIVER AT REXFORD NY", y:null},
@@ -898,6 +932,12 @@ function redrawTopChartOnHover(seconds,chartSeries) {
       continue;
     }
 
+    /////////////////////////////////////
+    //      ACCESSING DATA HERE        //
+    /////////////////////////////////////
+    console.log('UPDATED -MP: ', seriesData[0].data[i].y, seriesData[1].data[i].y)
+
+    //  finding deltas between stages
     var difference = (seriesData[0].data[i].y - seriesData[1].data[i].y).toFixed(2);
 
     //console.log('THISSS', seriesData[0].data[i].name, seriesData[0].data[i].name.length)
@@ -906,7 +946,7 @@ function redrawTopChartOnHover(seconds,chartSeries) {
     if (difference >= 0.5 && difference < 2.5) categories[i] = '<span class="ice-legend">' + seriesData[0].data[i].name + '</span><hr><icon class="graphIcon wmm-square wmm-F1C40F wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless"></icon>' + difference;
     if (difference >= 2.5)                     categories[i] = '<span class="ice-legend">' + seriesData[0].data[i].name  + '</span><hr><icon class="graphIcon wmm-square wmm-E74C3C wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless"></icon>' + difference;
   }
-
+  console.log("UPDATE series data",seriesData)
   //update top chart
   //console.log('updating top chart',seriesData)
   mainChart.xAxis[0].setCategories(categories);
@@ -940,7 +980,10 @@ function redrawTopChartOnHover(seconds,chartSeries) {
   updateMap(categories,seriesData);
   
 }
- 
+
+///////////////////////////////////////
+//                       //
+///////////////////////////////////////
 function showGraphAllData(startTime,seriesData,graphContainer) {
 
   //clear out graphContainer
@@ -1242,6 +1285,9 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
 
 }
 
+///////////////////////////////////////
+//     MAP CALCULATIONS AND COLOR    //
+///////////////////////////////////////
 function updateMap(categories, seriesData) {
 
   //console.log('in updateMap',categories,seriesData);
@@ -1289,6 +1335,9 @@ function addToLegend(text, classString) {
   }
 }
 
+///////////////////////////////////////
+//           GEOJSON DATA            //
+///////////////////////////////////////
 function loadSites() {
   console.log('in loadsites');
 
@@ -1296,7 +1345,7 @@ function loadSites() {
 
   //first load mohawk boundary geoJSON
   $.ajax({
-    url: mohawkBoundaryURL,
+    url: mohawkBoundaryURL, // mohawkBoundary.json
     dataType: 'json',
     success: function (data) {
       boundaryGeoJSON = geoJSON(data, {
@@ -1316,7 +1365,7 @@ function loadSites() {
 
   //then load sites geojson
   $.ajax({
-    url: sitesURL,
+    url: sitesURL, // sitesGeoJSON.json
     dataType: 'json',
     success: function (data) {
 
@@ -1334,7 +1383,7 @@ function loadSites() {
           format: 'json',
           sites: siteList,
         }, function success(data) {
-            console.log('NWIS IV Data:',data);
+            console.log('NWIS IV Data:', data);
 
             var idx = 1;
 
@@ -1343,10 +1392,12 @@ function loadSites() {
               var found = false;
 
               data.value.timeSeries.forEach(function (NWISdata) {
+                // split out site id and param code from response
                 var site_data = NWISdata.name.split(':');
                 var siteID = site_data[1];
                 var pcode = site_data[2];
                 var pcode_tsid = '';
+                // console.log(siteID, pcode) // prints all sites along mohawk?
 
                 if (siteID === feature.properties['siteID']) {
                   found = true;
@@ -1397,6 +1448,8 @@ function loadSites() {
             // legend.addTo(theMap);
                                     
             sitesGeoJSON = geoJSON(featureCollection, {
+
+              // label map features, add to legend
               pointToLayer: function (feature, latlng) {
 
                 var classString = 'wmm-pin wmm-white wmm-icon-triangle wmm-icon-black wmm-size-25';
@@ -1412,18 +1465,16 @@ function loadSites() {
                   text = feature.properties.siteName;
                 }
 
-
-          
                 addToLegend(text, classString);
 
-          
                 var icon = L.divIcon({ className: classString });
                 return L.marker(latlng, { icon: icon });
               },
+
+              // define links to webcam image, weather, gage info
               onEachFeature: function(feature, layer) {
                 var popupContent = '';
 
-                
                 if (feature.properties.siteType == 'webcam') {
                   popupContent = '<b>Camera Name:</b> ' + feature.properties.siteName + '<br><a href="' + feature.properties.webcamLink + '" target="_blank" class="btn btn-outline-info btn-sm">Open webcam</a>';
                 }
@@ -1641,8 +1692,11 @@ function loadSites() {
                 };
               
                 seriesData.push(series);
+                
               });
             });
+            // console.log('UPDATED LOG: ', seriesData) // -mp
+
 
             showGraphAllData(startTime,seriesData, 'graphContainer2');
 
