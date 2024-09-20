@@ -46,9 +46,9 @@ const nimsImageLinkJson = {
         'image_div' : fb_image,
     },
     'l8' : {
-        'across': img_link(),
         'ds' : img_link(),
-        'us' : img_link(),
+        'across': img_link("NY_Mohawk_River_at_Lock_8_near_Schenectady_View_Across"),
+        'us' : img_link("NY_Mohawk_River_at_Lock_8_near_Schenectady_Upstream_View"),
         'home' : img_link("NY_Mohawk_River_at_Lock_8_near_Schenectady"),
         'image_div' : l8_image,
     },
@@ -212,3 +212,5 @@ for (var i=0; i<buttons.length; i++) {
     id = buttons[i].parentNode.id.split('-')[0] // grab api-div id
     buttons[i].addEventListener('click', populate_api_images(id)) // pop by id
 }
+
+

@@ -1,0 +1,16 @@
+web publishing USGS apps and terms:
+
+Note permissions levels
+
+NatWeb
+AFS
+Auristor
+Kerberos
+
+/afs/.usgs.gov/www/ny.water/htdocs
+
+http://www.usgs.gov/centers/ny.water
+/afs/.usgs.gov/www/Conf/ny.water/httpd.conf
+
+See for info:
+https://natweb.usgs.gov/policy/

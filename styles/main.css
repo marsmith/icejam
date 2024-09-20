@@ -12,6 +12,10 @@ body {
   margin-bottom: 0;
 }
 
+a{
+  cursor: pointer !important;
+}
+
 /* open-sans-regular - latin */
 @font-face {
 font-family: 'Open Sans';
@@ -43,12 +47,13 @@ body,html{
   background-color: #1d1d2b;
   z-index: 1001;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   height: 50px;
   box-sizing: border-box;
   padding: 0 15px;
 }
-  
+
+
 /* All nav buttons have the same styles */
 #topMenu button{
   background-color: transparent;
@@ -75,10 +80,10 @@ body,html{
 
 /* Left side of nav */
 /* Branding and mobile menu button */
-#navLeft{
+/* #navLeft{
   display: flex;
   justify-content: space-around;
-}
+} */
 
 #mobileMainMenu{
   display: flex;
@@ -98,7 +103,7 @@ body,html{
 
 
 /* Usgs Logo */
-#navUsgsLogo{
+/* #navUsgsLogo{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -107,12 +112,12 @@ body,html{
 #navUsgsLogo img{
   display: block; 
   height: 40px;
-}
-@media (max-width: 800px) {
+} */
+/* @media (max-width: 800px) {
   #navUsgsLogo img{
     height: 30px;
   }
-}
+} */
 /* @media (max-width: 450px) {
   #navUsgsLogo{
     margin-right: 0;
@@ -122,7 +127,7 @@ body,html{
 
 
 /* App Title */
-#appTitle{
+/* #appTitle{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -132,7 +137,7 @@ body,html{
   line-height: 26px;
   box-sizing: border-box;
   padding: 0 15px 0 0;
-}
+} */
 @media (max-width: 1200px) {
   #appTitle{
     font-size: 18px;
@@ -148,12 +153,12 @@ body,html{
 }
 
 /* Right side of nav - buttons */
-#navRight{
+/* #navRight{
   display: flex;
   flex-grow: 3;
   flex-direction: row;
   justify-content: flex-end;
-}
+} */
 
 /*
   ===========================
@@ -334,4 +339,9 @@ circle {
   fill: none;
   stroke: #bcf;
 }
+
+
+
+
+
 

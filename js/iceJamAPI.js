@@ -18,6 +18,7 @@ function img_link(string){
     return(result)
 }
 
+
 //////////////////////////////////////////////////
 //               nims url key json              //
 //////////////////////////////////////////////////
@@ -45,9 +46,9 @@ const nimsImageLinkJson = {
         'image_div' : fb_image,
     },
     'l8' : {
-        'across': img_link(),
         'ds' : img_link(),
-        'us' : img_link(),
+        'across': img_link("NY_Mohawk_River_at_Lock_8_near_Schenectady_View_Across"),
+        'us' : img_link("NY_Mohawk_River_at_Lock_8_near_Schenectady_Upstream_View"),
         'home' : img_link("NY_Mohawk_River_at_Lock_8_near_Schenectady"),
         'image_div' : l8_image,
     },

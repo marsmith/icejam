@@ -61,8 +61,8 @@ var categories = ["MOHAWK RIVER AT LOCK 9 AT ROTTERDAM JUNCTION NY", "MOHAWK RIV
 var observedColor = '#1F42DD';
 var predictedColor = '#E23F22';
 var siteColors = {
-  '01354230:00065': '#229954', // added -MP
-  '01354230:99067': '#8E44AD', // added -MP
+  // '01354230:00065': '#229954', // added -MP
+  // '01354230:99067': '#8E44AD', // added -MP
   '01354330:00065': '#1A5276',
   '01354330:99067': '#2980B9',
   '01354500:00060': '#2C3E50',
@@ -730,14 +730,14 @@ function downloadData() {
             csvData.push(value.dateTime + ',' + value.value);
         });
     
-        //console.log(csvData);
+        console.log('CSVDATA', csvData);
         
         csvData = csvData.join('\n');
     
         var filename = data.siteCode.replace(':','_') + '.csv';
         downloadFile(csvData,filename);
       }
-    
+      
       else {
         alert('No data to export');
       }
@@ -848,8 +848,8 @@ function redrawTopChartOnHover(seconds,chartSeries) {
         {name: "MOHAWK RIVER AT LOCK 9 AT ROTTERDAM JUNCTION NY", y: null},
         {name: "MOHAWK RIVER AT LOCK 8 NEAR SCHENECTADY NY", y: null},
         {name: "MOHAWK RIVER AT FREEMAN'S BRIDGE AT SCHENECTADY NY", y: null},
-        {name: "MOHAWK RIVER AT REXFORD NY", y:null},
-        {name: "MOHAWK RIVER AT VISCHER FERRY DAM NY", y:null}
+        {name: "MOHAWK RIVER AT REXFORD NY", y: null},
+        {name: "MOHAWK RIVER AT VISCHER FERRY DAM NY", y: null}
       ],
       name:'Gage height (Observed)' 
     },
@@ -858,8 +858,8 @@ function redrawTopChartOnHover(seconds,chartSeries) {
         {name: "MOHAWK RIVER AT LOCK 9 AT ROTTERDAM JUNCTION NY", y: null},
         {name: "MOHAWK RIVER AT LOCK 8 NEAR SCHENECTADY NY", y: null},
         {name: "MOHAWK RIVER AT FREEMAN'S BRIDGE AT SCHENECTADY NY", y: null},
-        {name: "MOHAWK RIVER AT REXFORD NY", y:null},
-        {name: "MOHAWK RIVER AT VISCHER FERRY DAM NY", y:null}
+        {name: "MOHAWK RIVER AT REXFORD NY", y: null},
+        {name: "MOHAWK RIVER AT VISCHER FERRY DAM NY", y: null}
       ],
       name:'Gage height (Predicted)'
     },
@@ -932,21 +932,22 @@ function redrawTopChartOnHover(seconds,chartSeries) {
       continue;
     }
 
-    /////////////////////////////////////
-    //      ACCESSING DATA HERE        //
-    /////////////////////////////////////
-    console.log('UPDATED -MP: ', seriesData[0].data[i].y, seriesData[1].data[i].y)
+    ////// ACCESSING DATA HERE  
+    /////////////////////////////////////////////////////////////////////////////////
+    // console.log('UPDATED -MP: ', seriesData[0].data[i].y, seriesData[1].data[i].y)
+    // console.log('checking... ',seriesData[1], seriesData[1].data, seriesData[1].data[i], seriesData[1].data[i].y)
+    /////////////////////////////////////////////////////////////////////////////////
 
+    /////////////////////////////////////
     //  finding deltas between stages
+    /////////////////////////////////////
     var difference = (seriesData[0].data[i].y - seriesData[1].data[i].y).toFixed(2);
-
-    //console.log('THISSS', seriesData[0].data[i].name, seriesData[0].data[i].name.length)
-
+    // console.log('THISSS', seriesData[0].data[i].name, seriesData[0].data[i].name.length)
     if (difference < 0.5)                      categories[i] = '<span class="ice-legend">' + seriesData[0].data[i].name + '</span><hr><icon class="graphIcon wmm-square wmm-196F3D wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless"></icon>' + difference;
     if (difference >= 0.5 && difference < 2.5) categories[i] = '<span class="ice-legend">' + seriesData[0].data[i].name + '</span><hr><icon class="graphIcon wmm-square wmm-F1C40F wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless"></icon>' + difference;
     if (difference >= 2.5)                     categories[i] = '<span class="ice-legend">' + seriesData[0].data[i].name  + '</span><hr><icon class="graphIcon wmm-square wmm-E74C3C wmm-icon-noicon wmm-icon-black wmm-size-25 wmm-borderless"></icon>' + difference;
   }
-  console.log("UPDATE series data",seriesData)
+  console.log("UPDATE series data", seriesData)
   //update top chart
   //console.log('updating top chart',seriesData)
   mainChart.xAxis[0].setCategories(categories);
@@ -1014,8 +1015,8 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
                 {name: "MOHAWK RIVER AT LOCK 9 AT ROTTERDAM JUNCTION NY", y: null},
                 {name: "MOHAWK RIVER AT LOCK 8 NEAR SCHENECTADY NY", y: null},
                 {name: "MOHAWK RIVER AT FREEMAN'S BRIDGE AT SCHENECTADY NY", y: null},
-                {name: "MOHAWK RIVER AT REXFORD NY", y:null},
-                {name: "MOHAWK RIVER AT VISCHER FERRY DAM NY", y:null}
+                {name: "MOHAWK RIVER AT REXFORD NY", y: null},
+                {name: "MOHAWK RIVER AT VISCHER FERRY DAM NY", y: null}
               ],
               name:'Gage height (Observed)',
               marker: {
@@ -1028,8 +1029,8 @@ function showGraphAllData(startTime,seriesData,graphContainer) {
                 {name: "MOHAWK RIVER AT LOCK 9 AT ROTTERDAM JUNCTION NY", y: null},
                 {name: "MOHAWK RIVER AT LOCK 8 NEAR SCHENECTADY NY", y: null},
                 {name: "MOHAWK RIVER AT FREEMAN'S BRIDGE AT SCHENECTADY NY", y: null},
-                {name: "MOHAWK RIVER AT REXFORD NY", y:null},
-                {name: "MOHAWK RIVER AT VISCHER FERRY DAM NY", y:null}
+                {name: "MOHAWK RIVER AT REXFORD NY", y: null},
+                {name: "MOHAWK RIVER AT VISCHER FERRY DAM NY", y: null}
               ],
               name:'Gage height (Predicted)',
               marker: {
