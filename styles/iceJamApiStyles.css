@@ -1,4 +1,7 @@
 
+a{
+  cursor: pointer !important;
+}
 
 img{
   max-width: 100%;
@@ -7,22 +10,31 @@ img{
 
 .images{
   margin:auto;
+  border: solid 2px black;
+  min-height: 125px;
+  /* min-width: 250px; */
 }
 
 .api-basic{
   grid-column: 1 ;
   display: grid;
   justify-items: center;
+  min-height: 100%;
+  min-width: 100%;
 }
 
 .buttons{
-  display: inline-flex;
+  border: solid 1px black;
+  width: 100%;
+  display: flex;
+  background-color: rgb(233, 233, 233);
+  justify-content: center;
+  height:25;
 }
 
 .btns{
-  margin:auto;
-  font-size: smaller;
-  /* display: inline-flex; */
-  /* width: 10px; */
+  margin: 2px 1.5px;
+  border: solid 2px black;
+  font-weight: 600;
+  width: auto;
 }
-

@@ -127,7 +127,7 @@ body,html{
 
 
 /* App Title */
-/* #appTitle{
+#appTitle{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -137,7 +137,7 @@ body,html{
   line-height: 26px;
   box-sizing: border-box;
   padding: 0 15px 0 0;
-} */
+}
 @media (max-width: 1200px) {
   #appTitle{
     font-size: 18px;
@@ -340,8 +340,10 @@ circle {
   stroke: #bcf;
 }
 
+.card-title{
+  background-color: rgb(175, 175, 175);
 
-
+}
 
 
 

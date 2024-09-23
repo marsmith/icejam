@@ -293,35 +293,25 @@
                                             Choose Specific Date Range
                                         </label>
                                     </div>
-                                        
-            
                                     <input id="startDate" type="text" value="2018-04-16" class="datepicker">
                                     <!-- <span>Start Date</span> -->
-            
-            
                                     <input id="endDate" type="text" value="2018-04-19" class="mt-1 datepicker">
                                     <!-- <span>End Date</span> -->
-            
                                 </div>
                             </div>
-            
                         </div>
-            
                         <div class="row mt-4">
                             <div class="col-12 text-center">
                                 <button id="showGraph" type="button" class="btn btn-success">Update Charts</button>
                             </div> 
                         </div>
                     </div>
-        
                 </div>
 
                 <div id="bottomChart" class="card mb-2">
                     <div class="card-body">
-
                         <span class="plot-title card-title"><b>Hydrology</b></span><br>
                         <span id="bottomChartTitle" class="plot-title card-title"></span>
-
                         <div class="row graph-loading" style="display:none;">
                             <div class="col-6 mx-auto">
                                 <div class="text-center">
@@ -329,38 +319,32 @@
                                 </div>
                             </div>
                         </div>
-        
                         <div id="graphContainer2" class="customChart"></div>
-    
-        
                     </div>
-
                 </div>
 
                 
                 <div id="mesonetChart" class="card mb-2">
                     <div class="card-body">
-
                         <span class="plot-title card-title"><b>Meteorology and Weather</b></span><br>
                         <span class="plot-title card-title">Recent, Current and Forecast</span>
                         <div class="row graph-loading" style="display:none;">
-                                <div class="col-6 mx-auto">
-                                    <div class="text-center">
-                                        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
-                                    </div>
+                            <div class="col-6 mx-auto">
+                                <div class="text-center">
+                                    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
                                 </div>
                             </div>
-                            <div id="mesonetGraphContainer" class="customChart"></div>
-                            <a href="http://nysmesonet.org/weather#network=nysm&stid=duan">
-                                <img style="height:40px;" src="./images/mesonet-logo.png">
-                            </a>
-                            <span>Recent and current data from NYS Mesonet station DUAN, in Duanesburg, NY</span>
-                            <br>
-                            <a href="https://www.weather.gov/">
-                                <img style="height:40px;" src="./images/nws-logo.png">
-                            </a>
-                            <span>Forecast data for Schenectady, NY, from National Weather Service</span>
-    
+                        </div>
+                        <div id="mesonetGraphContainer" class="customChart"></div>
+                        <a href="http://nysmesonet.org/weather#network=nysm&stid=duan">
+                            <img style="height:40px;" src="./images/mesonet-logo.png">
+                        </a>
+                        <span>Recent and current data from NYS Mesonet station DUAN, in Duanesburg, NY</span>
+                        <br>
+                        <a href="https://www.weather.gov/">
+                            <img style="height:40px;" src="./images/nws-logo.png">
+                        </a>
+                        <span>Forecast data for Schenectady, NY, from National Weather Service</span>
                     </div>
                 </div>
             </div>
@@ -371,24 +355,19 @@
                     <div id="lock9_webcam">
                         <div class="card-body">
                             <h5 class="card-title">Mohawk River at Lock 9 at Rotterdam Junction, NY</h5>
- 
-                            <!-- Div that is going to hold web player. Size set to keep player space before load. -->
-                             <div class="temp_div1"></div>
-                             <div class="temp_div2"></div>
-                            <div class="api-basic" id="l9-api" api>
+                            <div class="api-basic" id="l9-api" >
+                                <div placeholder style="max-width: 100%;"></div>
                                 <a href="#" onclick="openWin(`l9-api`)"  class="imgLink">
                                     <div id='lock9-image' class="images" image style="position: relative;" ></div>
                                 </a>
                                 <div class='buttons'>
-
                                     <button class='btns' type="button" l9-hm-btn>L9</button>
                                     <button class='btns' type="button" l9-xs-btn>XS</button>
                                     <button class='btns' type="button" l9-ds-btn>DS</button>
-                                    <button class='btns' type="button" l9-zm-btn>DS Zoom</button>
+                                    <button class='btns' type="button" l9-zm-btn>DS+</button>
                                     <button class='btns' type="button" l9-us-btn>US</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -397,21 +376,17 @@
                     <div id="lock8_webcam">
                         <div class="card-body">
                             <h5 class="card-title">Mohawk River at Lock 8, Schenectady, NY</h5>
-                            <!-- Code to show web player. Must go after div tag. -->
                             <div class="api-basic" id="l8-api">
+                                <div class="placeholder" style="max-width: 100%;"></div>
                                 <a href="#" onclick="openWin(`l8-api`)" class="imgLink" >
                                     <div id='lock8-image' class="images" image style="position: relative;"></div>
                                 </a>
                                 <div class='buttons'>
-
                                     <button class='btns' type="button" l8-hm-btn>L8</button>
                                     <button class='btns' type="button" l8-us-btn>US</button>
                                     <button class='btns' type="button" l8-xs-btn>XS</button>
-
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -420,10 +395,8 @@
                     <div id="union_boathouse_webcam">
                         <div class="card-body">
                             <h5 class="card-title">Mohawk River at Union College Boat House, Schenectady, NY</h5>
-
-                            <div style="width: 100%" id="union_boathouse_holder"></div>
-                            <!-- Code to show web player. Must go after div tag. -->
                             <div class="api-basic" id="ub-api">
+                                <div placeholder style="max-width: 100%;"></div>
                                 <a href="#" onclick="openWin(`ub-api`)"  class="imgLink">
                                     <div id='ub-image' class="images" image style="position: relative;"></div>
                                 </a>
@@ -433,7 +406,6 @@
                                     <button class='btns' type="button" ub-xs-btn>XS</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -442,10 +414,8 @@
                     <div id="freemans_bridge_webcam">
                         <div class="card-body">
                             <h5 class="card-title">Mohawk River at Freeman's Bridge, NY</h5>
-                            <!-- Div that is going to hold web player. Size set to keep player space before load. -->
-                            <div style="width: 100%" id="freemans_holder"></div>
-                            <!-- Code to show web player. Must go after div tag. -->
                             <div class="api-basic" id="fb-api">
+                                <div placeholder style="max-width: 100%;"></div>
                                 <a href="#" onclick="openWin(`fb-api`)"  class="imgLink">
                                     <div id='fb-image' class="images" image style="position: relative;"></div>
                                 </a>
@@ -453,11 +423,9 @@
                                     <button class='btns' type="button" fb-hm-btn>XS</button>
                                     <button class='btns' type="button" fb-ds-btn>DS</button>
                                     <button class='btns' type="button" fb-us-btn>US</button>
-                                    <button class='btns' type="button" fb-zm-btn>DS Zoom</button>
-                                    <!-- <button class='btns' type="button" fb-xs-btn>Across</button> -->
+                                    <button class='btns' type="button" fb-zm-btn>DS+</button>
                                 </div>
                             </div>
-                       
                         </div>
                     </div>
                 </div>
@@ -466,23 +434,19 @@
                     <div id="rexford_webcam">
                         <div class="card-body">
                             <h5 class="card-title">Mohawk River at Rexford, NY</h5>
- 
-                            <!-- Div that is going to hold web player. Size set to keep player space before load. -->
-                            <div style="width: 100%" id="rexford_holder"></div>
-                            <!-- Code to show web player. Must go after div tag. -->
                             <div class="api-basic" id="rx-api">
+                                <div placeholder style="max-width: 100%;"></div>
                                 <a href="#" onclick="openWin(`rx-api`)"  class="imgLink">
                                     <div id='rx-image' class="images" image style="position: relative;"></div>
                                 </a>
                                 <div class='buttons'>
                                     <button class='btns' type="button" rx-hm-btn>XS</button>
                                     <button class='btns' type="button" rx-ds-btn>DS</button>
-                                    <button class='btns' type="button" rx-xs-btn>DS Zoom</button>
+                                    <button class='btns' type="button" rx-xs-btn>DS+</button>
                                     <button class='btns' type="button" rx-us-btn>US</button>
-                                    <button class='btns' type="button" rx-zm-btn>US Zoom </button>
+                                    <button class='btns' type="button" rx-zm-btn>US+</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -491,17 +455,16 @@
                     <div id="lock7_webcam">
                         <div class="card-body">
                             <h5 class="card-title">Mohawk River at Vischer Ferry Dam, NY</h5>
-        
                             <div class="api-basic" id="l7-api">
+                                <div placeholder style="max-width: 100%;"></div>
                                 <a href="#" onclick="openWin(`l7-api`)"  class="imgLink">
                                     <div id='lock7-image' class="images" image style="position: relative;"></div>
                                 </a>
                                 <div class='buttons'>
-
                                     <button class='btns' type="button" l7-hm-btn>XS</button>
                                     <button class='btns' type="button" l7-us-btn>US</button>
                                     <button class='btns' type="button" l7-xs-btn>Dam</button>
-                                    <button class='btns' type="button" l7-zm-btn>DS Zm</button>
+                                    <button class='btns' type="button" l7-zm-btn>DS+</button>
                                     <button class='btns' type="button" l7-ds-btn>DS</button>
                                     <button class='btns' type="button" l7-xtra-btn>Pier</button>
                                 </div>
@@ -559,7 +522,7 @@
 
 
 
-
+<!-- modal about section window -->
     <div id="aboutModal" class="modal fade"  tabindex="-1" role="dialog" >
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -785,4 +748,5 @@ HDRelay.create({target:"lock8_holder",id:"61a64ee37ee0bcc6eb462f8f"});
 
 <!-- <script type="text/javascript">
 HDRelay.create({target:"lock9_holder",id:"61a64fce5233cdcad76d7dd1"});
-</script> -->
+</script> --> 
+

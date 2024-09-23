@@ -31,14 +31,14 @@ const nimsImageLinkJson = {
         'image_div' : rx_image,
     },
     'ub' : {
-        'across': img_link(),
-        'ds' : img_link(),
-        'us' : img_link(),
+        'across': img_link('NY_Mohawk_River_at_Stockade_at_Schenectady_View_Across'),
+        // 'ds' : img_link('NY_Mohawk_River_at_Stockade_at_Schenectady'),
+        'us' : img_link('NY_Mohawk_River_at_Stockade_at_Schenectady_View_Upstream'),
         'home' : img_link("NY_Mohawk_River_at_Stockade_at_Schenectady"),
         'image_div' : ub_image,
     },
     'fb' : {
-        'across': '',
+        'across':'' ,
         'ds' : '',
         'us' : '',
         'home' : img_link("NY_Mohawk_River_at_Freemans_Bridge_in_Schenectady"),
@@ -46,7 +46,7 @@ const nimsImageLinkJson = {
         'image_div' : fb_image,
     },
     'l8' : {
-        'ds' : img_link(),
+        // 'ds' : img_link('NY_Mohawk_River_at_Lock_8_near_Schenectady'),
         'across': img_link("NY_Mohawk_River_at_Lock_8_near_Schenectady_View_Across"),
         'us' : img_link("NY_Mohawk_River_at_Lock_8_near_Schenectady_Upstream_View"),
         'home' : img_link("NY_Mohawk_River_at_Lock_8_near_Schenectady"),
