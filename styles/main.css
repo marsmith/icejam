@@ -329,7 +329,7 @@ body,html{
   border-radius: 0px;
 }
 
-.leaflet-popup-content img { margin: 0 auto; display:block; }
+/* .leaflet-popup-content img { margin: 0 auto; display:block; } */
 
 .d3chart {
   fill: none;

@@ -1,41 +1,77 @@
 
 
-#grid{
+/* #grid{
   display: grid;
-  /* grid-template: repeat(10 50px)/ repeat(10 50px); */
-}
+} */
 
-.api-basic{
-  border: solid;
-  grid-column: 1 ;
+.api-basic-popout{
+  border: solid 2px rgba(0, 0, 0, 0.5) ;
+  border-radius: 15px;
+  grid-column: 1;
   display: grid;
   justify-items: center;
-  max-width: 1000px;
-  /* grid template:; */
+  margin:25px 50px 50px;
+  background-color: rgb(245, 245, 245);
+  
+  /* background-color: rgb(112, 136, 109); */
+  max-width: 100%;
+  width:auto;
+  height: auto;
+  /* width: 100% */
 }
 
-.images{
-  margin:auto;
-  max-width: 95%;
+/* injected into image div from popout.js */
+img{
+  max-width: 100%;
   max-height: auto;
 }
 
-.btns{
-  margin: auto;
-  display: inline-flex;
-  width: auto;
-  height: auto;
-  font-size: xx-large;
+.images-popout{
+  /* border: solid darkgrey 1px; */
+  margin: 10px;
+}
+
+.buttons-popout{
+  display: flex;
+  width: 40%;
   justify-content: center;
+  padding: 5px;
+}
+
+hr{
+  width:99%
+}
+
+.btnz{
+  margin: auto 5px;
+  outline: auto;
+  border-radius: 1px;
+  width: 65px;
+  height: 35px;
+  font-size: large;
+  background-color: rgb(231, 231, 231);
+}
+.btnz:hover{
+  cursor: pointer;
+
+}
+
+.timelapse-div{
+  margin-bottom: 10px;
+  text-decoration: underline;
+  font-size: larger;
+  
+}
+
+.header-popout{
+  display: flex;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: monospace; */
+  font-weight:700 ;
+  font-size: 1.5rem;
+  max-width: 100%;
+  /* display:none */
 }
 
 
-/* #lock9-image{
-  height: 150%;
-  width: auto;
-} */
-
-/* 
-.buttons{
-  border: solid;
-} */

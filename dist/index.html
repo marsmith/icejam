@@ -357,7 +357,7 @@
                             <h5 class="card-title">Mohawk River at Lock 9 at Rotterdam Junction, NY</h5>
                             <div class="api-basic" id="l9-api" >
                                 <div placeholder style="max-width: 100%;"></div>
-                                <a href="#" onclick="openWin(`l9-api`)"  class="imgLink">
+                                <a href="#" onclick="openWin(`l9-api-popout`)"  class="imgLink">
                                     <div id='lock9-image' class="images" image style="position: relative;" ></div>
                                 </a>
                                 <div class='buttons'>
@@ -378,7 +378,7 @@
                             <h5 class="card-title">Mohawk River at Lock 8, Schenectady, NY</h5>
                             <div class="api-basic" id="l8-api">
                                 <div class="placeholder" style="max-width: 100%;"></div>
-                                <a href="#" onclick="openWin(`l8-api`)" class="imgLink" >
+                                <a href="#" onclick="openWin(`l8-api-popout`)" class="imgLink" >
                                     <div id='lock8-image' class="images" image style="position: relative;"></div>
                                 </a>
                                 <div class='buttons'>
@@ -397,7 +397,7 @@
                             <h5 class="card-title">Mohawk River at Union College Boat House, Schenectady, NY</h5>
                             <div class="api-basic" id="ub-api">
                                 <div placeholder style="max-width: 100%;"></div>
-                                <a href="#" onclick="openWin(`ub-api`)"  class="imgLink">
+                                <a href="#" onclick="openWin(`ub-api-popout`)"   class="imgLink">
                                     <div id='ub-image' class="images" image style="position: relative;"></div>
                                 </a>
                                 <div class='buttons'>
@@ -416,7 +416,7 @@
                             <h5 class="card-title">Mohawk River at Freeman's Bridge, NY</h5>
                             <div class="api-basic" id="fb-api">
                                 <div placeholder style="max-width: 100%;"></div>
-                                <a href="#" onclick="openWin(`fb-api`)"  class="imgLink">
+                                <a href="#" onclick="openWin(`fb-api-popout`)"   class="imgLink">
                                     <div id='fb-image' class="images" image style="position: relative;"></div>
                                 </a>
                                 <div class='buttons'>
@@ -436,7 +436,7 @@
                             <h5 class="card-title">Mohawk River at Rexford, NY</h5>
                             <div class="api-basic" id="rx-api">
                                 <div placeholder style="max-width: 100%;"></div>
-                                <a href="#" onclick="openWin(`rx-api`)"  class="imgLink">
+                                <a href="#" onclick="openWin(`rx-api-popout`)"  class="imgLink">
                                     <div id='rx-image' class="images" image style="position: relative;"></div>
                                 </a>
                                 <div class='buttons'>
@@ -457,7 +457,7 @@
                             <h5 class="card-title">Mohawk River at Vischer Ferry Dam, NY</h5>
                             <div class="api-basic" id="l7-api">
                                 <div placeholder style="max-width: 100%;"></div>
-                                <a href="#" onclick="openWin(`l7-api`)"  class="imgLink">
+                                <a href="#" onclick="openWin(`l7-api-popout`)"  class="imgLink">
                                     <div id='lock7-image' class="images" image style="position: relative;"></div>
                                 </a>
                                 <div class='buttons'>
@@ -471,6 +471,120 @@
                             </div>
 
                         </div>
+                    </div>
+                </div>
+
+                <!-- ############################# divs for popout api ################### -->
+                <div class="img-hide">
+                    <div class="api-basic-popout" id="rx-api-popout">
+                        <h1 class="header-popout">Mohawk River at Rexford, NY</h1>
+                        <div placeholder style="max-width: 100%;" id='rx-placeholder'> <div id="placeholder"></div> </div>
+                        <a href="#"   class="imgLink">
+                            <div id='rx-image-popout' class="images-popout" image style="position: relative;"></div>
+                        </a>
+                        <div class='buttons-popout'>
+                            <button class='btnz' type="button" rx-hm-btn>XS</button>
+                            <button class='btnz' type="button" rx-ds-btn>DS</button>
+                            <button class='btnz' type="button" rx-dsz-btn>DS+</button>
+                            <button class='btnz' type="button" rx-us-btn>US</button>
+                            <button class='btnz' type="button" rx-zm-btn>US+</button>
+                        </div>
+                        <hr>
+                        <div class="timelapse-div"><a class="timelapse-link">Visit USGS HIVIS Timelapse</a></div>
+                    </div>
+                </div>
+
+
+                <div class="img-hide">
+                    <div class="api-basic-popout" id="l7-api-popout">
+                        <h1 class="header-popout">Mohawk River at Vischer Ferry Dam, NY</h1>
+                        <div placeholder style="max-width: 100%;" id="l7-placeholder"> <div id="placeholder"></div> </div>
+                        <a href="#"  class="imgLink">
+                            <div id='lock7-image-popout' class="images-popout" image style="position: relative;"></div>
+                        </a>
+                        <div class='buttons-popout'>
+                            <button class='btnz' type="button" l7-hm-btn>XS</button>
+                            <button class='btnz' type="button" l7-us-btn>US</button>
+                            <button class='btnz' type="button" l7-xs-btn>Dam</button>
+                            <button class='btnz' type="button" l7-zm-btn>DS+</button>
+                            <button class='btnz' type="button" l7-ds-btn>DS</button>
+                            <button class='btnz' type="button" l7-pier-btn>Pier</button>
+                        </div>
+                        <hr>
+                        <div class="timelapse-div"><a class="timelapse-link">Visit USGS HIVIS Timelapse</a></div>
+                    </div>
+                </div>
+
+                <div class="img-hide" >
+                    <div class="api-basic-popout" id="fb-api-popout">
+                        <h1  class="header-popout">Mohawk River at Freeman's Bridge, NY</h1>
+                        <div placeholder style="max-width: 100%;" id="fb-placeholder"> <div id="placeholder"></div> </div>
+                        <a href="#"  class="imgLink">
+                            <div id='fb-image-popout' class="images-popout" image style="position: relative;"></div>
+                        </a>
+                        <div class='buttons-popout'>
+                            <button class='btnz' type="button" fb-hm-btn>XS</button>
+                            <button class='btnz' type="button" fb-ds-btn>DS</button>
+                            <button class='btnz' type="button" fb-us-btn>US</button>
+                            <button class='btnz' type="button" fb-zm-btn>DS+</button>
+                        </div>
+                        <hr>
+                        <div class="timelapse-div"><a class="timelapse-link">Visit USGS HIVIS Timelapse</a></div>
+                    </div>
+                </div>
+
+                <div class="img-hide">
+                    <div class="api-basic-popout" id="ub-api-popout">
+                        <h1 class="header-popout">Mohawk River at Union College Boat House, Schenectady, NY</h1>
+                        <div placeholder style="max-width: 100%;" id="ub-placeholder"> <div id="placeholder"></div> </div>
+                        <a href="#" class="imgLink">
+                            <div id='ub-image-popout' class="images-popout" image style="position: relative;"></div>
+                        </a>
+                        <div class='buttons-popout'>
+                            <button class='btnz' type="button" ub-hm-btn>DS</button>
+                            <button class='btnz' type="button" ub-us-btn>US</button>
+                            <button class='btnz' type="button" ub-xs-btn>XS</button>
+                        </div>
+                        <hr>
+                        <div class="timelapse-div"><a class="timelapse-link">Visit USGS HIVIS Timelapse</a></div>
+                    </div>
+                </div>
+
+                <div class="img-hide">
+                    <div class="api-basic-popout" id="l8-api-popout">
+                        <h1 class="header-popout">Mohawk River at Lock 8, Schenectady, NY</h1>
+                        <div placeholder style="max-width: 100%;" id="l8-placeholder"> <div id="placeholder"></div> </div>
+                        <a href="#"  class="imgLink" >
+                            <div id='lock8-image-popout' class="images-popout" image style="position: relative;"></div>
+                        </a>
+                        <div class='buttons-popout'>
+                            <button class='btnz' type="button" l8-hm-btn>L8</button>
+                            <button class='btnz' type="button" l8-us-btn>US</button>
+                            <button class='btnz' type="button" l8-xs-btn>XS</button>
+                        </div>
+                        <hr>
+                        <div class="timelapse-div"><a class="timelapse-link">Visit USGS HIVIS Timelapse</a></div>
+                        
+                    </div>
+                </div>
+
+                <div class="img-hide"  >
+                    <div class="api-basic-popout" id="l9-api-popout">
+                        <h1  class="header-popout">Mohawk River at Lock 9 at Rotterdam Junction, NY</h1>
+                        <hr>
+                        <div placeholder style="max-width: 100%;" class='placeholder' id="l9-placeholder"> <div id="placeholder"></div> </div>
+                        <a href="#"  class="imgLink" >
+                            <div id='lock9-image-popout' class="images-popout" image style="position: relative;" ></div>
+                        </a>
+                        <div class='buttons-popout'>
+                            <button class='btnz' type="button" l9-hm-btn>L9</button>
+                            <button class='btnz' type="button" l9-xs-btn>XS</button>
+                            <button class='btnz' type="button" l9-ds-btn>DS</button>
+                            <button class='btnz' type="button" l9-zm-btn>DS+</button>
+                            <button class='btnz' type="button" l9-us-btn>US</button>
+                        </div>
+                        <hr>
+                        <div class="timelapse-div"><a class="timelapse-link" target="blank">Visit USGS HIVIS Timelapse</a></div>
                     </div>
                 </div>
 
@@ -615,7 +729,7 @@
 
 
 
-
+<!-- ##################################################################################### -->
 
 <!-- code tbd -->
 <!-- Updated imports -->
@@ -750,3 +864,18 @@ HDRelay.create({target:"lock8_holder",id:"61a64ee37ee0bcc6eb462f8f"});
 HDRelay.create({target:"lock9_holder",id:"61a64fce5233cdcad76d7dd1"});
 </script> --> 
 
+
+
+<!-- Open window function -->
+<!-- 
+<a href="../html/popout.html" class="imgLink"
+onclick="window.open(this.href,'targetWindow',
+                                `toolbar=no,
+                                 location=no,
+                                 status=no,
+                                 menubar=no,
+                                 scrollbars=yes,
+                                 resizable=yes,
+                                 width=1000px,
+                                 height=auto`);
+return false;"><div id='rx-image' class="images" image style="position: relative;"></div></a> -->

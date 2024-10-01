@@ -12,6 +12,7 @@ img{
   margin:auto;
   border: solid 2px black;
   min-height: 125px;
+  /* border: solid black 10px; */
   /* min-width: 250px; */
 }
 
@@ -25,6 +26,7 @@ img{
 
 .buttons{
   border: solid 1px black;
+
   width: 100%;
   display: flex;
   background-color: rgb(233, 233, 233);
@@ -37,4 +39,10 @@ img{
   border: solid 2px black;
   font-weight: 600;
   width: auto;
+  /* border-radius: 2px; */
+}
+
+
+.img-hide{
+  display: none;
 }
