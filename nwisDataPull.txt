@@ -1,0 +1,5 @@
+Observed data
+  - SeriesData[0].data[i].y 
+
+Predicted data
+  - SeriesData[1].data[i].y
