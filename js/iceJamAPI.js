@@ -254,7 +254,8 @@ button_click_pop()
 
 //////////////////////////////////////////////////
 // popup window function
-//////////////////////////////////////////////////                
+//////////////////////////////////////////////////
+const windowFeatures = "left=100, right=1000, top=50, width=900, height=700";                
 function openWin(site_div, input=insert_js) {
     var popup;
     // if (popup && !popup.closed) {
@@ -263,16 +264,16 @@ function openWin(site_div, input=insert_js) {
     } else {
         // grab site id
         id = site_div.split('-')[0]
-        // pop_home_imgs(id)
-        // populate_api_images(id)
 
         // grab div, insert js script
         var div_inner = document.getElementById(site_div)
         div_inner.insertAdjacentHTML('beforeend', input )
         
         // define window settings, open, close
-        popup = window.open('', '', 'max-width=95%,')
-        // popup = window.open(this.href, 'targetWindow', 'max-width=95%, width=900, height=700,')
+        popup = window.open('', '', windowFeatures)
+        // popup = window.open(this.href, '',  windowFeatures)
+        // popup = window.open('', '')
+        // popup = window.open(this.href, 'targetWindow', 'max-width=50%', windowFeatures)
 
         // refresh on popup close
         var timer = setInterval(function() { 
@@ -286,7 +287,7 @@ function openWin(site_div, input=insert_js) {
         var divText = div_inner.outerHTML
         doc.open();
         doc.write(divText);
-        // doc.close();
+        doc.close();
         }
     }
 
